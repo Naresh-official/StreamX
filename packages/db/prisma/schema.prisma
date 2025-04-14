@@ -1,0 +1,151 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id @default(uuid())
+  email          String   @unique
+  username       String   @unique
+  passwordHash   String
+  profilePicture String?
+  createdAt      DateTime @default(now())
+
+  Session Session[]
+  Video   Video[]
+}
+
+model Session {
+  id        String   @id @default(uuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+}
+
+model Video {
+  id           String     @id @default(uuid())
+  title        String
+  description  String
+  thumbnailUrl String
+  videoUrl     String
+  duration     Int // seconds
+  uploaderId   String
+  uploader     User       @relation(fields: [uploaderId], references: [id])
+  tags         Tag[]      @relation("VideoTags")
+  visibility   Visibility @default(PUBLIC)
+  createdAt    DateTime   @default(now())
+  views        Int        @default(0)
+  Category     Category?  @relation(fields: [categoryId], references: [id])
+  categoryId   String?
+}
+
+model Tag {
+  id     String  @id @default(uuid())
+  name   String  @unique
+  videos Video[] @relation("VideoTags")
+}
+
+model Like {
+  id        String   @id @default(uuid())
+  userId    String
+  videoId   String
+  createdAt DateTime @default(now())
+}
+
+model Comment {
+  id        String   @id @default(uuid())
+  content   String
+  userId    String
+  videoId   String
+  createdAt DateTime @default(now())
+}
+
+model WatchHistory {
+  id        String   @id @default(uuid())
+  userId    String
+  videoId   String
+  watchedAt DateTime @default(now())
+  progress  Int // seconds watched
+}
+
+model Category {
+  id     String  @id @default(uuid())
+  name   String  @unique
+  videos Video[]
+}
+
+model UserCategoryPreference {
+  id         String @id @default(uuid())
+  userId     String
+  categoryId String
+  weight     Float // relevance score
+}
+
+model ViewEvent {
+  id        String   @id @default(uuid())
+  userId    String?
+  videoId   String
+  timestamp DateTime @default(now())
+}
+
+model SearchQuery {
+  id        String   @id @default(uuid())
+  query     String
+  userId    String?
+  timestamp DateTime @default(now())
+}
+
+model Subscription {
+  id        String           @id @default(uuid())
+  userId    String
+  plan      SubscriptionPlan
+  startsAt  DateTime
+  expiresAt DateTime
+  isActive  Boolean
+}
+
+model Payment {
+  id          String        @id @default(uuid())
+  userId      String
+  amount      Float
+  currency    String
+  status      PaymentStatus
+  paymentDate DateTime      @default(now())
+}
+
+model UploadSession {
+  id         String       @id @default(uuid())
+  uploaderId String
+  videoTitle String
+  status     UploadStatus
+  createdAt  DateTime     @default(now())
+}
+
+enum Visibility {
+  PUBLIC
+  PRIVATE
+  UNLISTED
+}
+
+enum SubscriptionPlan {
+  FREE
+  PREMIUM
+}
+
+enum PaymentStatus {
+  PENDING
+  COMPLETED
+  FAILED
+}
+
+enum UploadStatus {
+  UPLOADING
+  PROCESSING
+  READY
+  FAILED
+}
