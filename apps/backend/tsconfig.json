@@ -1,0 +1,13 @@
+{
+	"extends": "../../tsconfig.json",
+	"compilerOptions": {
+		"outDir": "dist",
+		"rootDir": "../../",
+		"paths": {
+			"@workspace/db/*": ["../../packages/db/index.ts"],
+			"@workspace/config": ["../../packages/config/index.ts"]
+		}
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "dist"]
+}
