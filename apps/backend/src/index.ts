@@ -5,7 +5,12 @@ import { env } from "@workspace/config";
 
 const app = express();
 
-app.use(cors());
+app.use(
+	cors({
+		origin: env.FRONTEND_URL,
+		methods: ["GET", "POST", "PUT", "DELETE"],
+	})
+);
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
@@ -17,5 +22,5 @@ import userRoutes from "./routes/user.routes";
 app.use("/api/v1/user", userRoutes);
 
 app.listen(PORT, () => {
-  console.log(`Server is listening on port ${PORT}`);
+	console.log(`Server is listening on port ${PORT}`);
 });
