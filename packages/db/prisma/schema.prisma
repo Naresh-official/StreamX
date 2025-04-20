@@ -19,6 +19,14 @@ model User {
   Video   Video[]
 }
 
+model Admin {
+  id             String   @id @default(uuid())
+  email          String   @unique
+  name           String?
+  profilePicture String?
+  createdAt      DateTime @default(now())
+}
+
 model Session {
   id        String   @id @default(uuid())
   userId    String

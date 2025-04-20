@@ -125,6 +125,14 @@ exports.Prisma.UserScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
+exports.Prisma.AdminScalarFieldEnum = {
+  id: 'id',
+  email: 'email',
+  name: 'name',
+  profilePicture: 'profilePicture',
+  createdAt: 'createdAt'
+};
+
 exports.Prisma.SessionScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
@@ -265,6 +273,7 @@ exports.UploadStatus = exports.$Enums.UploadStatus = {
 
 exports.Prisma.ModelName = {
   User: 'User',
+  Admin: 'Admin',
   Session: 'Session',
   Video: 'Video',
   Tag: 'Tag',
