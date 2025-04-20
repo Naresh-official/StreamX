@@ -24,9 +24,10 @@ import { videoQueue } from "./libs/queue";
 app.use("/api/v1/user", userRoutes);
 
 app.post("/process", async (req, res) => {
-  const videoId = req.body.videoId;
+  const { videoId, videoKey } = req.body;
 
   await videoQueue.add("video-transcode", {
+    videoKey,
     videoId,
   });
   res.status(200).json({
