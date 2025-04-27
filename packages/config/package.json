@@ -1,22 +1,22 @@
 {
-	"name": "@workspace/config",
-	"version": "1.0.0",
-	"description": "",
-	"main": "index.ts",
-	"type": "module",
-	"scripts": {
-		"dev": "tsx watch index.ts",
-		"build": "tsc",
-		"start": "node index.js"
-	},
-	"keywords": [],
-	"author": "",
-	"license": "ISC",
-	"packageManager": "pnpm@10.4.1",
-	"devDependencies": {
-		"tsc": "^2.0.4",
-		"tsx": "^4.19.3",
-		"typescript": "^5.8.3"
-	},
-	"types": "./index.ts"
+  "name": "@workspace/config",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.ts",
+  "type": "module",
+  "scripts": {
+    "dev": "tsx watch index.ts",
+    "build": "tsc",
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "packageManager": "pnpm@10.4.1",
+  "devDependencies": {
+    "tsc": "^2.0.4",
+    "tsx": "^4.19.3",
+    "typescript": "^5.8.3"
+  },
+  "types": "./index.ts"
 }

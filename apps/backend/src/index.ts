@@ -19,9 +19,11 @@ const PORT = parseInt(env.PORT);
 
 // Import routes
 import userRoutes from "./routes/user.routes";
+import adminRoutes from "./routes/admin.routes";
 import { videoQueue } from "./libs/queue";
 
 app.use("/api/v1/user", userRoutes);
+app.use("/api/v1/admin", adminRoutes);
 
 app.post("/process", async (req, res) => {
   const { videoId, videoKey } = req.body;

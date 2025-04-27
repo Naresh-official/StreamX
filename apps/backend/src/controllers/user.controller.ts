@@ -19,6 +19,7 @@ export async function getUser(req: Request, res: Response) {
     res.status(200).json(user);
     return;
   } catch (error) {
+    console.log("Error fetching user:", error);
     res.status(500).json({ error: "Internal server error" });
     return;
   }
