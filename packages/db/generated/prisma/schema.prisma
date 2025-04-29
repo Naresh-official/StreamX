@@ -16,7 +16,6 @@ model User {
   createdAt      DateTime @default(now())
 
   Session Session[]
-  Video   Video[]
 }
 
 model Admin {
@@ -38,17 +37,13 @@ model Video {
   id           String     @id @default(uuid())
   title        String
   description  String
-  thumbnailUrl String
-  videoUrl     String
+  thumbnailUrl String     @default("")
   duration     Int // seconds
-  uploaderId   String
-  uploader     User       @relation(fields: [uploaderId], references: [id])
   tags         Tag[]      @relation("VideoTags")
   visibility   Visibility @default(PUBLIC)
   createdAt    DateTime   @default(now())
   views        Int        @default(0)
-  Category     Category?  @relation(fields: [categoryId], references: [id])
-  categoryId   String?
+  categories   Category[] @relation("VideoCategories")
 }
 
 model Tag {
@@ -83,7 +78,7 @@ model WatchHistory {
 model Category {
   id     String  @id @default(uuid())
   name   String  @unique
-  videos Video[]
+  videos Video[] @relation("VideoCategories")
 }
 
 model UserCategoryPreference {
