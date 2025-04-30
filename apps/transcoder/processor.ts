@@ -12,10 +12,7 @@ import {
 export async function processVideo(job: Job) {
   const { videoKey, videoId } = job.data;
   console.log(`Starting video transcoding job for ${videoId}...`);
-  console.log({ videoKey, videoId, cwd: process.cwd() });
   const inputPath = `${process.cwd()}/tmp/${videoId}-input.mp4`;
-
-  console.log({ inputPath });
 
   await downloadFromS3(videoKey, inputPath);
 

@@ -14,7 +14,7 @@ const worker = new Worker(
   async (job) => {
     await processVideo(job);
   },
-  { connection },
+  { connection }
 );
 
 worker.on("completed", (job) => {
