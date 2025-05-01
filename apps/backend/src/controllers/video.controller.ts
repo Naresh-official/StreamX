@@ -1,16 +1,24 @@
 import { Request, Response } from "express";
 import prisma from "@workspace/db/*";
-import { generatePresignedUrlForUpload } from "@workspace/s3";
+import { generatePresignedUrlForUpload } from "@workspace/s3/index";
+import { videoQueue } from "../libs/queue";
+
 
 export const createVideoRecord = async (req: Request, res: Response) => {
   const {
     title,
+    thumbnailUrl,
     description,
     duration,
     tags,
-    visibility,
     categories,
-    thumbnailUrl,
+  }: {
+    title: string;
+    thumbnailUrl: string;
+    description: string;
+    duration: number;
+    tags: string[];
+    categories: string[];
   } = req.body;
 
   try {
@@ -19,8 +27,7 @@ export const createVideoRecord = async (req: Request, res: Response) => {
         title,
         description,
         duration,
-        visibility,
-        thumbnailUrl: thumbnailUrl,
+        thumbnailUrl,
         tags: {
           connectOrCreate: tags.map((tagName: string) => ({
             where: { name: tagName },
@@ -44,3 +51,16 @@ export const createVideoRecord = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const addVideoToQueue = async (req: Request, res: Response) => { 
+  const { videoId, videoKey } = req.body;
+  
+    await videoQueue.add("video-transcode", {
+      videoKey,
+      videoId,
+    });
+    res.status(200).json({
+      message: "Video processing started",
+    });
+    return;
+}

@@ -5,7 +5,8 @@
     "rootDir": "../../",
     "paths": {
       "@workspace/db/*": ["../../packages/db/index.ts"],
-      "@workspace/config": ["../../packages/config/index.ts"]
+      "@workspace/config/*": ["../../packages/config/*"],
+      "@workspace/s3/*": ["../../packages/s3/*"]
     }
   },
   "include": ["src/**/*"],

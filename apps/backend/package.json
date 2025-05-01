@@ -24,6 +24,8 @@
   "dependencies": {
     "@workspace/config": "workspace:*",
     "@workspace/db": "workspace:*",
+    "@workspace/s3": "workspace:*",
+    "@workspace/cloudinary": "workspace:*",
     "body-parser": "^2.2.0",
     "bullmq": "^5.49.1",
     "cors": "^2.8.5",
