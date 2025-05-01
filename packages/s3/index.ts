@@ -1,12 +1,11 @@
 import fs from "fs";
-import { env } from "@workspace/config";
+import { env } from "@workspace/config/server";
 import {
   GetObjectCommand,
   PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import https from "https";
 
 const s3 = new S3Client({
   region: env.AWS_REGION,
@@ -76,43 +75,8 @@ export async function generatePresignedUrlForUpload(
 ): Promise<string> {
   const command = new PutObjectCommand({
     Bucket: env.S3_BUCKET,
-    Key: videoKey,
+    Key: `${videoKey}/original`,
     ContentType: "video/mp4",
   });
   return getSignedUrl(s3, command, { expiresIn: expiresIn });
-}
-
-export async function uploadToPresignedUrl(
-  presignedUrl: string,
-  fileBuffer: Buffer
-): Promise<void> {
-  return new Promise((resolve, reject) => {
-    const url = new URL(presignedUrl);
-
-    const options = {
-      method: "PUT",
-      hostname: url.hostname,
-      path: url.pathname + url.search,
-      headers: {
-        "Content-Length": fileBuffer.length,
-      },
-    };
-
-    const req = https.request(options, (res) => {
-      if (res.statusCode && res.statusCode >= 200 && res.statusCode < 300) {
-        console.log("Presigned upload successful");
-        resolve();
-      } else {
-        reject(
-          new Error(
-            `Presigned upload failed with status code ${res.statusCode}`
-          )
-        );
-      }
-    });
-
-    req.on("error", reject);
-    req.write(fileBuffer);
-    req.end();
-  });
 }

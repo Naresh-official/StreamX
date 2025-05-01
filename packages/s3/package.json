@@ -19,7 +19,15 @@
     "typescript": "^5.8.3"
   },
   "exports": {
-    ".": "./index.ts"
+    ".": {
+      "import": "./index.ts"
+    },
+    "./server": {
+      "import": "./index.ts"
+    },
+    "./client": {
+      "import": "./client.ts"
+    }
   },
   "types": "./index.ts",
   "dependencies": {
