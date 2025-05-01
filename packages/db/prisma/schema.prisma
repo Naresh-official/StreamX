@@ -40,7 +40,6 @@ model Video {
   thumbnailUrl String     @default("")
   duration     Int // seconds
   tags         Tag[]      @relation("VideoTags")
-  visibility   Visibility @default(PUBLIC)
   createdAt    DateTime   @default(now())
   views        Int        @default(0)
   categories   Category[] @relation("VideoCategories")
@@ -126,12 +125,6 @@ model UploadSession {
   videoTitle String
   status     UploadStatus
   createdAt  DateTime     @default(now())
-}
-
-enum Visibility {
-  PUBLIC
-  PRIVATE
-  UNLISTED
 }
 
 enum SubscriptionPlan {

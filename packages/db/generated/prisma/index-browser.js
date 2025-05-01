@@ -145,7 +145,6 @@ exports.Prisma.VideoScalarFieldEnum = {
   description: 'description',
   thumbnailUrl: 'thumbnailUrl',
   duration: 'duration',
-  visibility: 'visibility',
   createdAt: 'createdAt',
   views: 'views'
 };
@@ -244,12 +243,6 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
-exports.Visibility = exports.$Enums.Visibility = {
-  PUBLIC: 'PUBLIC',
-  PRIVATE: 'PRIVATE',
-  UNLISTED: 'UNLISTED'
-};
-
 exports.SubscriptionPlan = exports.$Enums.SubscriptionPlan = {
   FREE: 'FREE',
   PREMIUM: 'PREMIUM'
