@@ -1,5 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
-import { env } from "@workspace/config";
+import { env } from "@workspace/config/server";
 
 cloudinary.config({
   cloud_name: env.CLOUDINARY_CLOUD_NAME,
@@ -7,9 +7,12 @@ cloudinary.config({
   api_secret: env.CLOUDINARY_API_SECRET,
 });
 
-export async function uploadImage(filePath: string): Promise<string> {
+export async function uploadImage(buffer: Buffer): Promise<string> {
   try {
-    const result = await cloudinary.uploader.upload(filePath, {
+    const base64 = buffer.toString("base64");
+    const dataUri = `data:image/jpeg;base64,${base64}`;
+
+    const result = await cloudinary.uploader.upload(dataUri, {
       resource_type: "image",
       folder: "streamx",
     });
