@@ -1,6 +1,7 @@
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { env } from "@workspace/config";
+import { env } from "@workspace/config/server";
+import { clientEnv } from "@workspace/config/client";
 import axios from "axios";
 
 export const authOptions: NextAuthOptions = {
@@ -21,7 +22,9 @@ export const authOptions: NextAuthOptions = {
           if (!email) {
             throw new Error("Email not found");
           }
-          const { data } = await axios.get(`${env.BACKEND_URL}/admin/${email}`);
+          const { data } = await axios.get(
+            `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/admin/${email}`
+          );
           if (data.id && data.email && data.name) {
             user.id = data.id;
             user.email = data.email;

@@ -7,7 +7,7 @@ import {
   ffmpegOutput480pOptions,
   ffmpegOutput720pOptions,
   ffmpegOutput1080pOptions,
-} from "@workspace/config";
+} from "@workspace/config/server";
 
 export async function processVideo(job: Job) {
   const { videoKey, videoId } = job.data;

@@ -1,7 +1,7 @@
 import { Worker } from "bullmq";
 import { Redis } from "ioredis";
 import { processVideo } from "./processor.js";
-import { env } from "@workspace/config";
+import { env } from "@workspace/config/server";
 
 const connection = new Redis({
   host: env.REDIS_HOST,
