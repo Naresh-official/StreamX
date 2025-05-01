@@ -2,12 +2,12 @@
   "name": "@workspace/config",
   "version": "1.0.0",
   "description": "",
-  "main": "index.ts",
+  "main": "./server.ts",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch index.ts",
+    "dev": "tsx watch server.ts",
     "build": "tsc",
-    "start": "node index.js"
+    "start": "node server.js"
   },
   "keywords": [],
   "author": "",
@@ -18,5 +18,12 @@
     "tsx": "^4.19.3",
     "typescript": "^5.8.3"
   },
-  "types": "./index.ts"
+  "exports": {
+    "./server": {
+      "import": "./server.ts"
+    },
+    "./client": {
+      "import": "./client.ts"
+    }
+  }
 }

@@ -14,7 +14,7 @@ const envSchema = z.object({
   DATABASE_URL: z.string().url(),
   PORT: z.string().default("8000"),
   FRONTEND_URL: z.string().url(),
-  BACKEND_URL: z.string().url(),
+  ADMIN_URL: z.string().url(),
   AWS_REGION: z.string().default("us-east-1"),
   AWS_ACCESS_KEY_ID: z.string(),
   AWS_SECRET_ACCESS_KEY: z.string(),
