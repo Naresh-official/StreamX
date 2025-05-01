@@ -1,18 +1,14 @@
 import { Input } from "@workspace/ui/shadcn/input.js";
 import { Label } from "@workspace/ui/shadcn/label.js";
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@workspace/ui/shadcn/select.js";
 
 interface VideoDurationProps {
-  videoDuration: string;
+  videoDuration: number;
 }
 
 function VideoDuration({ videoDuration }: VideoDurationProps) {
+  const minutes = Math.floor(videoDuration / 60);
+  const seconds = Math.floor(videoDuration % 60);
+  const formattedDuration = `${minutes}:${seconds < 10 ? "0" : ""}${seconds}`;
   return (
     <div className="space-y-2">
       <Label htmlFor="duration" className="text-base">
@@ -20,7 +16,7 @@ function VideoDuration({ videoDuration }: VideoDurationProps) {
       </Label>
       <Input
         id="duration"
-        value={videoDuration}
+        value={formattedDuration}
         readOnly
         className="bg-muted/50 w-32 focus-visible:ring-0 focus-visible:border-input"
       />

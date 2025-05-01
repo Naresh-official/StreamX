@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useRef } from "react";
+import { useState } from "react";
 import { Card, CardContent } from "../../shadcn/card.js";
 import VideoCard from "./VideoCard.js";
 import ThumbnailCard from "./ThumbnailCard.js";
@@ -11,20 +11,21 @@ import VideoTags from "./VideoTags.js";
 import VideoDuration from "./VideoDuration.js";
 import ProgressBar from "./ProgressBar.js";
 import SubmitButton from "./SubmitButton.js";
+import { useVideoUpload } from "@workspace/api-client";
 
 export function VideoUploadForm() {
+  const { uploadVideo } = useVideoUpload();
+
   const [videoFile, setVideoFile] = useState<File | null>(null);
+  const [videoTitle, setVideoTitle] = useState<string>("");
+  const [videoDescription, setVideoDescription] = useState<string>("");
   const [thumbnailFile, setThumbnailFile] = useState<File | null>(null);
-  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
-  const [videoDuration, setVideoDuration] = useState<string>("00:00");
+  const [videoDuration, setVideoDuration] = useState<number>(0);
   const [tags, setTags] = useState<string[]>([]);
-  const [currentTag, setCurrentTag] = useState<string>("");
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [uploadStatus, setUploadStatus] = useState<string>("");
   const [isUploading, setIsUploading] = useState<boolean>(false);
-
-  const videoRef = useRef<HTMLVideoElement>(null);
-  const tagInputRef = useRef<HTMLInputElement>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -39,27 +40,21 @@ export function VideoUploadForm() {
       return;
     }
 
-    setIsUploading(true);
-    setUploadStatus("Uploading...");
+    // setIsUploading(true);
+    // setUploadStatus("Uploading...");
 
-    // Simulate upload progress
-    const interval = setInterval(() => {
-      setUploadProgress((prev) => {
-        if (prev >= 100) {
-          clearInterval(interval);
-          setUploadStatus("Processing...");
+    console.log({ tags });
 
-          // Simulate processing delay
-          setTimeout(() => {
-            setUploadStatus("Upload complete!");
-            setIsUploading(false);
-          }, 2000);
-
-          return 100;
-        }
-        return prev + 5;
-      });
-    }, 300);
+    await uploadVideo(
+      videoFile,
+      thumbnailFile,
+      videoTitle,
+      videoDescription,
+      videoDuration,
+      tags,
+      selectedCategories
+    );
+    setIsUploading(false);
   };
 
   return (
@@ -73,13 +68,10 @@ export function VideoUploadForm() {
                 videoFile={videoFile}
                 setVideoFile={setVideoFile}
                 setVideoDuration={setVideoDuration}
-                videoRef={videoRef}
               />
               <ThumbnailCard
                 thumbnailFile={thumbnailFile}
                 setThumbnailFile={setThumbnailFile}
-                thumbnailPreview={thumbnailPreview}
-                setThumbnailPreview={setThumbnailPreview}
               />
             </div>
           </CardContent>
@@ -89,16 +81,19 @@ export function VideoUploadForm() {
         <Card>
           <CardContent className="pt-6">
             <div className="space-y-6">
-              <VideoTitle />
-              <VideoDescription />
-              <VideoCategories />
-              <VideoTags
-                tags={tags}
-                setTags={setTags}
-                currentTag={currentTag}
-                setCurrentTag={setCurrentTag}
-                tagInputRef={tagInputRef}
+              <VideoTitle
+                videoTitle={videoTitle}
+                setVideoTitle={setVideoTitle}
               />
+              <VideoDescription
+                videoDescription={videoDescription}
+                setVideoDescription={setVideoDescription}
+              />
+              <VideoCategories
+                selectedCategories={selectedCategories}
+                setSelectedCategories={setSelectedCategories}
+              />
+              <VideoTags tags={tags} setTags={setTags} />
 
               <VideoDuration videoDuration={videoDuration} />
             </div>

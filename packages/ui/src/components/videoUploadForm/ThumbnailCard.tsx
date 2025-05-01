@@ -2,24 +2,26 @@ import { Button } from "@workspace/ui/shadcn/button.js";
 import { Input } from "@workspace/ui/shadcn/input.js";
 import { Label } from "@workspace/ui/shadcn/label.js";
 import { ImageIcon, X } from "lucide-react";
-import { ChangeEvent, Dispatch } from "react";
+import { ChangeEvent, Dispatch, useState } from "react";
 
 interface ThumbnailCardProps {
-  thumbnailPreview: string | null;
   thumbnailFile: File | null;
   setThumbnailFile: Dispatch<React.SetStateAction<File | null>>;
-  setThumbnailPreview: Dispatch<React.SetStateAction<string | null>>;
 }
 
 function ThumbnailCard({
-  thumbnailPreview,
   thumbnailFile,
   setThumbnailFile,
-  setThumbnailPreview,
 }: ThumbnailCardProps) {
+  const [thumbnailPreview, setThumbnailPreview] = useState<string | null>(null);
+
   const handleThumbnailChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
+    if (file.size > 5 * 1024 * 1024) { 
+      alert("File size exceeds 5MB");
+      return;
+    }
 
     setThumbnailFile(file);
 

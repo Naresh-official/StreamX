@@ -7,19 +7,18 @@ import { ChangeEvent, Dispatch, SetStateAction, useRef } from "react";
 interface VideoCardProps {
   videoFile: File | null;
   setVideoFile: Dispatch<SetStateAction<File | null>>; // Updated type
-  setVideoDuration: Dispatch<SetStateAction<string>>; // Added type for duration
-  videoRef: React.RefObject<HTMLVideoElement | null>; // Added ref for video element
+  setVideoDuration: Dispatch<SetStateAction<number>>; // Added type for duration
 }
 
 function VideoCard({
   videoFile,
   setVideoFile,
   setVideoDuration,
-  videoRef,
 }: VideoCardProps) {
+    const videoRef = useRef<HTMLVideoElement>(null);
+
   const handleVideoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-    console.log(file);
     if (!file) return;
 
     if (file.size > 1024 * 1024 * 1024) {
@@ -34,11 +33,8 @@ function VideoCard({
     const video = document.createElement("video");
 
     video.onloadedmetadata = () => {
-      const minutes = Math.floor(video.duration / 60);
-      const seconds = Math.floor(video.duration % 60);
-      setVideoDuration(
-        `${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`
-      );
+
+      setVideoDuration(video.duration);
       URL.revokeObjectURL(videoUrl);
     };
 

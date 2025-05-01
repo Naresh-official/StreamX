@@ -3,23 +3,17 @@ import { Button } from "@workspace/ui/shadcn/button.js";
 import { Input } from "@workspace/ui/shadcn/input.js";
 import { Label } from "@workspace/ui/shadcn/label.js";
 import { X } from "lucide-react";
-import { ChangeEvent, Dispatch, RefObject, SetStateAction } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from "react";
 
 interface VideoTagsProps {
   tags: string[];
   setTags: Dispatch<SetStateAction<string[]>>;
-  currentTag: string;
-  setCurrentTag: Dispatch<SetStateAction<string>>;
-  tagInputRef: RefObject<HTMLInputElement | null>;
 }
 
-function VideoTags({
-  tags,
-  setTags,
-  currentTag,
-  setCurrentTag,
-  tagInputRef,
-}: VideoTagsProps) {
+function VideoTags({ tags, setTags }: VideoTagsProps) {
+  const tagInputRef = useRef<HTMLInputElement>(null);
+  const [currentTag, setCurrentTag] = useState<string>("");
+
   const removeTag = (tagToRemove: string) => {
     setTags(tags.filter((tag) => tag !== tagToRemove));
   };
@@ -64,7 +58,7 @@ function VideoTags({
               type="button"
               variant="ghost"
               size="sm"
-              className="h-4 w-4 p-0 hover:bg-transparent"
+              className="h-5 w-5 p-1 hover:!bg-primary/30"
               onClick={() => removeTag(tag)}
             >
               <X className="h-3 w-3" />

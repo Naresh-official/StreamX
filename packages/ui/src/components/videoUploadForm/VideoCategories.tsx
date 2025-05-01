@@ -7,12 +7,42 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@workspace/ui/shadcn/select.js";
-import { useState } from "react";
 import { Button } from "@workspace/ui/shadcn/button.js";
 import { X } from "lucide-react";
+import { Dispatch, SetStateAction } from "react";
 
-function VideoCategories() {
-  const [selectedCategories, setSelectedCategories] = useState<string[]>([]);
+interface VideoCategoriesProps {
+  selectedCategories: string[];
+  setSelectedCategories: Dispatch<SetStateAction<string[]>>;
+}
+
+function VideoCategories({
+  selectedCategories,
+  setSelectedCategories,
+}: VideoCategoriesProps) {
+  const knownCategories = [
+    "Action",
+    "Adventure",
+    "Animation",
+    "Biography",
+    "Comedy",
+    "Crime",
+    "Documentary",
+    "Drama",
+    "Family",
+    "Fantasy",
+    "History",
+    "Horror",
+    "Musical",
+    "Mystery",
+    "Romance",
+    "Sci-Fi",
+    "Short",
+    "Sport",
+    "Thriller",
+    "War",
+    "Western",
+  ];
 
   const addCategory = (category: string) => {
     if (!selectedCategories.includes(category)) {
@@ -43,7 +73,7 @@ function VideoCategories() {
               type="button"
               variant="ghost"
               size="sm"
-              className="h-5 w-5 p-1  hover:!bg-primary/30"
+              className="h-5 w-5 p-1 hover:!bg-primary/30"
               onClick={() => removeCategory(category)}
             >
               <X className="h-3 w-3" />
@@ -53,16 +83,20 @@ function VideoCategories() {
       </div>
       <Select onValueChange={addCategory}>
         <SelectTrigger id="categories" className="ring-0 ring-offset-0">
-          <SelectValue placeholder="Select categories" />
+          <SelectValue
+            placeholder="Select categories"
+            className="focus-visible:ring-0 focus-visible:border-input"
+          />
         </SelectTrigger>
         <SelectContent>
-          <SelectItem value="movies">Movies</SelectItem>
-          <SelectItem value="tutorials">Tutorials</SelectItem>
-          <SelectItem value="educational">Educational</SelectItem>
-          <SelectItem value="entertainment">Entertainment</SelectItem>
-          <SelectItem value="sports">Sports</SelectItem>
-          <SelectItem value="news">News</SelectItem>
-          <SelectItem value="music">Music</SelectItem>
+          {knownCategories.map((category) => (
+            <SelectItem
+              key={category.toLowerCase()}
+              value={category.toLowerCase()}
+            >
+              {category}
+            </SelectItem>
+          ))}
         </SelectContent>
       </Select>
     </div>
