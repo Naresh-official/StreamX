@@ -20,7 +20,6 @@
   },
   "dependencies": {
     "@workspace/config": "workspace:*",
-    "@workspace/api-client": "workspace:*",
     "@workspace/cloudinary": "workspace:*",
     "@workspace/s3": "workspace:*",
     "axios": "^1.9.0"

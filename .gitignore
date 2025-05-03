@@ -36,3 +36,4 @@ npm-debug.log*
 *.pem
 apps/transcoder/tmp/**/*.ts
 apps/transcoder/tmp/**/*.m3u8
+apps/transcoder/tmp/*.mp4

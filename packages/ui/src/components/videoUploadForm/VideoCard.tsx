@@ -15,7 +15,7 @@ function VideoCard({
   setVideoFile,
   setVideoDuration,
 }: VideoCardProps) {
-    const videoRef = useRef<HTMLVideoElement>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
 
   const handleVideoChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
@@ -33,7 +33,6 @@ function VideoCard({
     const video = document.createElement("video");
 
     video.onloadedmetadata = () => {
-
       setVideoDuration(video.duration);
       URL.revokeObjectURL(videoUrl);
     };

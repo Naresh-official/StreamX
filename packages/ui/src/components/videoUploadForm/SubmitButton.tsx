@@ -4,15 +4,20 @@ import { Loader2 } from "lucide-react";
 interface SubmitButtonProps {
   isUploading: boolean;
   videoFile: File | null;
+  uploadStatus: string;
 }
 
-function SubmitButton({ isUploading, videoFile }: SubmitButtonProps) {
+function SubmitButton({
+  isUploading,
+  videoFile,
+  uploadStatus,
+}: SubmitButtonProps) {
   return (
     <div className="flex justify-end">
       <Button
         type="submit"
         size="lg"
-        disabled={isUploading || !videoFile}
+        disabled={isUploading || !videoFile || uploadStatus === "Uploaded"}
         className="px-8"
       >
         {isUploading ? (
@@ -20,8 +25,10 @@ function SubmitButton({ isUploading, videoFile }: SubmitButtonProps) {
             <Loader2 className="mr-2 h-4 w-4 animate-spin" />
             Uploading...
           </>
+        ) : uploadStatus === "Uploaded" ? (
+          "Uploaded"
         ) : (
-          "Upload Video"
+          "Upload"
         )}
       </Button>
     </div>

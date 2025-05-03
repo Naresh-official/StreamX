@@ -1,5 +1,4 @@
 import { VideoUploadForm } from "@workspace/ui/components/videoUploadForm/VideoUploadForm";
-import { clientEnv } from "@workspace/config/client";
 
 export default function VideoUploadPage() {
   return (

@@ -3,7 +3,6 @@ import prisma from "@workspace/db/*";
 import { generatePresignedUrlForUpload } from "@workspace/s3/index";
 import { videoQueue } from "../libs/queue";
 
-
 export const createVideoRecord = async (req: Request, res: Response) => {
   const {
     title,
@@ -52,15 +51,15 @@ export const createVideoRecord = async (req: Request, res: Response) => {
   }
 };
 
-export const addVideoToQueue = async (req: Request, res: Response) => { 
+export const addVideoToQueue = async (req: Request, res: Response) => {
   const { videoId, videoKey } = req.body;
-  
-    await videoQueue.add("video-transcode", {
-      videoKey,
-      videoId,
-    });
-    res.status(200).json({
-      message: "Video processing started",
-    });
-    return;
-}
+
+  await videoQueue.add("video-transcode", {
+    videoKey,
+    videoId,
+  });
+  res.status(200).json({
+    message: "Video processing started",
+  });
+  return;
+};

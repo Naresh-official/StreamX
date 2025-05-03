@@ -40,10 +40,8 @@ export function VideoUploadForm() {
       return;
     }
 
-    // setIsUploading(true);
-    // setUploadStatus("Uploading...");
-
-    console.log({ tags });
+    setIsUploading(true);
+    setUploadStatus("Uploading...");
 
     await uploadVideo(
       videoFile,
@@ -52,9 +50,11 @@ export function VideoUploadForm() {
       videoDescription,
       videoDuration,
       tags,
-      selectedCategories
+      selectedCategories,
+      setUploadProgress
     );
     setIsUploading(false);
+    setUploadStatus("Uploaded");
   };
 
   return (
@@ -110,7 +110,11 @@ export function VideoUploadForm() {
       )}
 
       {/* Submit Button */}
-      <SubmitButton isUploading={isUploading} videoFile={videoFile} />
+      <SubmitButton
+        isUploading={isUploading}
+        uploadStatus={uploadStatus}
+        videoFile={videoFile}
+      />
     </form>
   );
 }

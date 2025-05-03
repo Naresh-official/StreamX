@@ -13,6 +13,7 @@ function ProgressBar({ uploadProgress, uploadStatus }: ProgressBarProps) {
           <div className="flex items-center justify-between">
             <h3 className="font-medium">Upload Status</h3>
             <span className="text-sm">{uploadStatus}</span>
+            <span className="text-sm mx-2">{uploadProgress.toFixed(2)} %</span>
           </div>
           <Progress value={uploadProgress} className="h-2" />
           <p className="text-sm text-muted-foreground">

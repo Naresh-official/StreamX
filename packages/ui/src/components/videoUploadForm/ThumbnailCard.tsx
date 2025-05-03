@@ -18,7 +18,7 @@ function ThumbnailCard({
   const handleThumbnailChange = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    if (file.size > 5 * 1024 * 1024) { 
+    if (file.size > 5 * 1024 * 1024) {
       alert("File size exceeds 5MB");
       return;
     }
@@ -65,7 +65,7 @@ function ThumbnailCard({
           <>
             <ImageIcon className="h-10 w-10 text-muted-foreground mb-2" />
             <p className="text-sm text-muted-foreground mb-1">
-              Upload a thumbnail image for your video
+              Upload a thumbnail image for your video (max 5MB)
             </p>
             <p className="text-xs text-muted-foreground">
               Recommended: 1280×720px JPG, PNG (16:9 ratio)

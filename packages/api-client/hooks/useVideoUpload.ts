@@ -10,20 +10,9 @@ export function useVideoUpload() {
     description: string,
     duration: number,
     tags: string[],
-    categories: string[]
+    categories: string[],
+    setUploadProgress: React.Dispatch<React.SetStateAction<number>>
   ) => {
-    console.log("Entering uploadVideo function");
-
-    console.log(typeof thumbnailFile);
-
-    console.log({
-      title,
-      description,
-      duration,
-      tags,
-      categories,
-    });
-
     try {
       const formData = new FormData();
       formData.append("file", thumbnailFile);
@@ -61,16 +50,15 @@ export function useVideoUpload() {
           },
         }
       );
-      console.log(data);
 
       const presignedUrl = data.url;
 
       const logProgress = (progress: number) => {
         console.log(`Video upload progress: ${progress.toFixed(2)}%`);
+        setUploadProgress(parseInt(progress.toFixed(2)));
       };
 
       await uploadToPresignedUrl(presignedUrl, videoFile, logProgress);
-      console.log("Video upload successful");
 
       const { data: queueData } = await axios.post(
         `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/video/process`,
@@ -84,7 +72,6 @@ export function useVideoUpload() {
           },
         }
       );
-      console.log(queueData);
     } catch (error: unknown) {
       if (error instanceof AxiosError) {
         console.error("Error uploading video:", error);
