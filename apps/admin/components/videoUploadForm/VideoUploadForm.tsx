@@ -1,16 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { Card, CardContent } from "../../shadcn/card.js";
-import VideoCard from "./VideoCard.js";
-import ThumbnailCard from "./ThumbnailCard.js";
-import VideoTitle from "./VideoTitle.js";
-import VideoDescription from "./VideoDescription.js";
-import VideoCategories from "./VideoCategories.js";
-import VideoTags from "./VideoTags.js";
-import VideoDuration from "./VideoDuration.js";
-import ProgressBar from "./ProgressBar.js";
-import SubmitButton from "./SubmitButton.js";
+import { Card, CardContent } from "@workspace/ui/components/card";
+import VideoCard from "./VideoCard";
+import ThumbnailCard from "./ThumbnailCard";
+import VideoTitle from "./VideoTitle";
+import VideoDescription from "./VideoDescription";
+import VideoCategories from "./VideoCategories";
+import VideoTags from "./VideoTags";
+import VideoDuration from "./VideoDuration";
+import ProgressBar from "./ProgressBar";
+import SubmitButton from "./SubmitButton";
 import { useVideoUpload } from "@workspace/api-client";
 
 export function VideoUploadForm() {

@@ -8,13 +8,18 @@ const poppins = Poppins({
   weight: ["400", "500", "600", "700"],
 });
 
+export const metadata = {
+  title: "Admin",
+  description: "Admin panel for the StreamX",
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="dark" suppressHydrationWarning>
+    <html lang="en" className="dark">
       <body className={`${poppins.variable} font-sans antialiased`}>
         {children}
       </body>

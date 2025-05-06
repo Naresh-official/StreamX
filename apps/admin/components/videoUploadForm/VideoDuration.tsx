@@ -1,5 +1,5 @@
-import { Input } from "@workspace/ui/shadcn/input.js";
-import { Label } from "@workspace/ui/shadcn/label.js";
+import { Input } from "@workspace/ui/components/input";
+import { Label } from "@workspace/ui/components/label";
 
 interface VideoDurationProps {
   videoDuration: number;

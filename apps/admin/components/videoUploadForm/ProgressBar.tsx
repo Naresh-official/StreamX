@@ -1,5 +1,5 @@
-import { Card, CardContent } from "@workspace/ui/shadcn/card.js";
-import { Progress } from "@workspace/ui/shadcn/progress.js";
+import { Card, CardContent } from "@workspace/ui/components/card";
+import { Progress } from "@workspace/ui/components/progress";
 
 interface ProgressBarProps {
   uploadProgress: number;

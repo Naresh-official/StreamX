@@ -1,7 +1,7 @@
-import { Badge } from "@workspace/ui/shadcn/badge.js";
-import { Button } from "@workspace/ui/shadcn/button.js";
-import { Input } from "@workspace/ui/shadcn/input.js";
-import { Label } from "@workspace/ui/shadcn/label.js";
+import { Badge } from "@workspace/ui/components/badge";
+import { Button } from "@workspace/ui/components/button";
+import { Input } from "@workspace/ui/components/input";
+import { Label } from "@workspace/ui/components/label";
 import { X } from "lucide-react";
 import { ChangeEvent, Dispatch, SetStateAction, useRef, useState } from "react";
 

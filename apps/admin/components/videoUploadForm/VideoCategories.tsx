@@ -1,13 +1,13 @@
-import { Label } from "@workspace/ui/shadcn/label.js";
-import { Badge } from "@workspace/ui/shadcn/badge.js";
+import { Label } from "@workspace/ui/components/label";
+import { Badge } from "@workspace/ui/components/badge";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@workspace/ui/shadcn/select.js";
-import { Button } from "@workspace/ui/shadcn/button.js";
+} from "@workspace/ui/components/select";
+import { Button } from "@workspace/ui/components/button";
 import { X } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
 

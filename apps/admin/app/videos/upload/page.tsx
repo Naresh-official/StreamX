@@ -1,4 +1,4 @@
-import { VideoUploadForm } from "@workspace/ui/components/videoUploadForm/VideoUploadForm";
+import { VideoUploadForm } from "@/components/videoUploadForm/VideoUploadForm";
 
 export default function VideoUploadPage() {
   return (

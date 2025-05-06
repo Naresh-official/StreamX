@@ -1,5 +1,5 @@
-import { Label } from "@workspace/ui/shadcn/label.js";
-import { Textarea } from "@workspace/ui/shadcn/textarea.js";
+import { Label } from "@workspace/ui/components/label";
+import { Textarea } from "@workspace/ui/components/textarea";
 import { Dispatch, SetStateAction } from "react";
 
 interface VideoDescriptionProps {

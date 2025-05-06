@@ -1,4 +1,4 @@
-import { Button } from "@workspace/ui/shadcn/button.js";
+import { Button } from "@workspace/ui/components/button";
 import { Loader2 } from "lucide-react";
 
 interface SubmitButtonProps {
