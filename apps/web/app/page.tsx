@@ -33,9 +33,14 @@ export default async function HomePage() {
 
       {/* Content Carousels */}
       <div className="space-y-8 mt-8 px-4 md:px-8">
-        <VideoCarousel title="Trending Now" videos={trending} />
-        <VideoCarousel title="Recommended For You" videos={recommended} />
-        <VideoCarousel title="New Releases" videos={newReleases} />
+        <h2 className="text-xl md:text-2xl font-bold mb-4">Trending Now</h2>
+        <VideoCarousel videos={trending} />
+        <h2 className="text-xl md:text-2xl font-bold mb-4">
+          Recommended For You
+        </h2>
+        <VideoCarousel videos={recommended} />
+        <h2 className="text-xl md:text-2xl font-bold mb-4">New Releases</h2>
+        <VideoCarousel videos={newReleases} />
       </div>
     </main>
   );

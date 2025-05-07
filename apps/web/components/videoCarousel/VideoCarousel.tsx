@@ -12,11 +12,10 @@ interface Video {
 }
 
 interface VideoCarouselProps {
-  title: string;
   videos: Video[];
 }
 
-export function VideoCarousel({ title, videos }: VideoCarouselProps) {
+export function VideoCarousel({ videos }: VideoCarouselProps) {
   const carouselRef = useRef<HTMLDivElement>(null);
 
   const scroll = (direction: "left" | "right") => {
@@ -33,13 +32,11 @@ export function VideoCarousel({ title, videos }: VideoCarouselProps) {
 
   return (
     <div className="relative group">
-      <h2 className="text-xl md:text-2xl font-bold mb-4">{title}</h2>
-
       {/* Left Navigation */}
       <Button
         variant="ghost"
         size="icon"
-        className="absolute left-0 top-1/2 z-10 h-full -translate-y-1/3 bg-black/30 rounded-md opacity-0 group-hover:opacity-100 transition-opacity"
+        className="absolute left-0 top-1/3 z-10 h-full -translate-y-1/3 bg-black/30 rounded-md opacity-0 group-hover:opacity-100 transition-opacity"
         onClick={() => scroll("left")}
       >
         <ChevronLeft className="h-8 w-8" />
@@ -59,7 +56,7 @@ export function VideoCarousel({ title, videos }: VideoCarouselProps) {
       <Button
         variant="ghost"
         size="icon"
-        className="absolute right-0 top-1/2 z-10 h-full -translate-y-1/3 bg-black/30 rounded-md opacity-0 group-hover:opacity-100 transition-opacity"
+        className="absolute right-0 top-1/3 z-10 h-full -translate-y-1/3 bg-black/30 rounded-md opacity-0 group-hover:opacity-100 transition-opacity"
         onClick={() => scroll("right")}
       >
         <ChevronRight className="h-8 w-8" />

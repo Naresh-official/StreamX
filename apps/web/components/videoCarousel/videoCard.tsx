@@ -14,17 +14,17 @@ interface VideoCardProps {
 
 export function VideoCard({ video }: VideoCardProps) {
   return (
-    <div className="video-card group relative flex-shrink-0 w-[180px] md:w-[240px] rounded-md overflow-hidden cursor-pointer">
+    <div className="video-card group relative flex-shrink-0 w-[180px] md:w-[355px] rounded-md overflow-hidden cursor-pointer">
       <div className="hover:scale-105">
         <Image
           src={video.imageUrl || "/placeholder.svg"}
           alt={video.title}
-          width={240}
-          height={135}
+          width={355}
+          height={200}
           className="w-full aspect-video object-cover"
         />
         {/* Hover Overlay */}
-        <div className="video-card-overlay absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex flex-col justify-end p-3">
+        <div className="video-card-overlay absolute inset-0 bg-black/40 opacity-0 hover:opacity-100 transition-opacity flex flex-col justify-end p-8">
           <h3 className="font-medium text-sm mb-2">{video.title}</h3>
 
           <div className="flex items-center gap-2">

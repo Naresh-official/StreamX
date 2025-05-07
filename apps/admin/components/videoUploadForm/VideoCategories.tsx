@@ -10,6 +10,7 @@ import {
 import { Button } from "@workspace/ui/components/button";
 import { X } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
+import { knownCategories } from "@workspace/config/client";
 
 interface VideoCategoriesProps {
   selectedCategories: string[];
@@ -20,30 +21,6 @@ function VideoCategories({
   selectedCategories,
   setSelectedCategories,
 }: VideoCategoriesProps) {
-  const knownCategories = [
-    "Action",
-    "Adventure",
-    "Animation",
-    "Biography",
-    "Comedy",
-    "Crime",
-    "Documentary",
-    "Drama",
-    "Family",
-    "Fantasy",
-    "History",
-    "Horror",
-    "Musical",
-    "Mystery",
-    "Romance",
-    "Sci-Fi",
-    "Short",
-    "Sport",
-    "Thriller",
-    "War",
-    "Western",
-  ];
-
   const addCategory = (category: string) => {
     if (!selectedCategories.includes(category)) {
       setSelectedCategories([...selectedCategories, category]);

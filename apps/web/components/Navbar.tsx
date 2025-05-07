@@ -28,41 +28,94 @@ export function Navbar() {
         <div className="flex items-center gap-8">
           {/* Logo */}
           <Link href="/" className="flex items-center">
-            <h1 className="text-2xl font-bold text-red-600">StreamX</h1>
+            <h1 className="text-3xl font-bold text-red-600">StreamX</h1>
           </Link>
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex items-center space-x-6">
+            {/* Top 5 popular genres */}
             <Link
-              href="/"
+              href="/movies/action"
               className="text-sm font-medium hover:text-gray-300 transition"
             >
-              Home
+              Action
             </Link>
             <Link
-              href="/tv-shows"
+              href="/movies/comedy"
               className="text-sm font-medium hover:text-gray-300 transition"
             >
-              TV Shows
+              Comedy
             </Link>
             <Link
-              href="/movies"
+              href="/movies/drama"
               className="text-sm font-medium hover:text-gray-300 transition"
             >
-              Movies
+              Drama
             </Link>
             <Link
-              href="/new"
+              href="/movies/thriller"
               className="text-sm font-medium hover:text-gray-300 transition"
             >
-              New & Popular
+              Thriller
             </Link>
             <Link
-              href="/my-list"
+              href="/movies/romance"
               className="text-sm font-medium hover:text-gray-300 transition"
             >
-              My List
+              Romance
             </Link>
+
+            {/* More dropdown */}
+            <DropdownMenu>
+              <DropdownMenuTrigger className="text-sm font-medium hover:text-gray-300 transition flex items-center gap-1">
+                More
+                <ChevronDown className="h-4 w-4" />
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="bg-black/90 border-gray-800">
+                <DropdownMenuItem>
+                  <Link href="/movies/adventure">Adventure</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/movies/animation">Animation</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/movies/biography">Biography</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/movies/crime">Crime</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/movies/documentary">Documentary</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/movies/family">Family</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/movies/fantasy">Fantasy</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/movies/history">History</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/movies/horror">Horror</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/movies/musical">Musical</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/movies/mystery">Mystery</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/movies/sci-fi">Sci-Fi</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/movies/sport">Sport</Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem>
+                  <Link href="/movies/war">War</Link>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
           </nav>
         </div>
 
