@@ -26,9 +26,7 @@ const envSchema = z.object({
   GOOGLE_CLIENT_SECRET: z.string(),
   NEXTAUTH_SECRET: z.string(),
 
-  CLOUDINARY_CLOUD_NAME: z.string(),
-  CLOUDINARY_API_KEY: z.string(),
-  CLOUDINARY_API_SECRET: z.string(),
+  CLOUDFRONT_DISTRIBUTION: z.string(),
 });
 
 export const env = envSchema.parse(process.env);
