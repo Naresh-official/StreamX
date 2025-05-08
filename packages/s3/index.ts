@@ -80,3 +80,12 @@ export async function generatePresignedUrlForUpload(
   });
   return getSignedUrl(s3, command, { expiresIn: expiresIn });
 }
+
+export function getCloudFrontUrl(videoKey: string): { [key: string]: string } {
+  const url = {
+    "480": `${env.CLOUDFRONT_DISTRIBUTION}/${videoKey}/480/index.m3u8`,
+    "720": `${env.CLOUDFRONT_DISTRIBUTION}/${videoKey}/720/index.m3u8`,
+    "1080": `${env.CLOUDFRONT_DISTRIBUTION}/${videoKey}/1080/index.m3u8`,
+  };
+  return url;
+}
