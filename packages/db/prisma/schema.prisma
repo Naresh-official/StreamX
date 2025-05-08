@@ -45,6 +45,8 @@ model Video {
   categories   Category[] @relation("VideoCategories")
 }
 
+//TODO : Add visibility settings for videos
+
 model Tag {
   id     String  @id @default(uuid())
   name   String  @unique
