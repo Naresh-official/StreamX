@@ -9,6 +9,22 @@ import {
   ffmpegOutput1080pOptions,
 } from "@workspace/config/server";
 
+async function transcodeResolution(
+  inputPath: string,
+  outputPath: string,
+  ffmpegOptions: string[]
+) {
+  return new Promise((resolve, reject) => {
+    ffmpeg(inputPath)
+      .outputOptions(ffmpegOutputOptions) // common options
+      .output(outputPath)
+      .outputOptions(ffmpegOptions) // resolution-specific options
+      .on("end", resolve)
+      .on("error", reject)
+      .run();
+  });
+}
+
 export async function processVideo(job: Job) {
   const { videoKey, videoId } = job.data;
   console.log(`Starting video transcoding job for ${videoId}...`);
@@ -27,36 +43,22 @@ export async function processVideo(job: Job) {
     console.log(`Input file exists: ${inputPath}`);
   }
 
-  await new Promise((resolve, reject) => {
-    ffmpeg(inputPath)
-      .outputOptions(ffmpegOutputOptions)
-      // 480p output
-      .output(output480p)
-      .outputOptions(ffmpegOutput480pOptions)
-      // 720p output
-      .output(output720p)
-      .outputOptions(ffmpegOutput720pOptions)
-      // 1080p output
-      .output(output1080p)
-      .outputOptions(ffmpegOutput1080pOptions)
-      .on("end", resolve)
-      .on("error", reject)
-      .run();
-  });
+  await transcodeResolution(inputPath, output480p, ffmpegOutput480pOptions);
+  await transcodeResolution(inputPath, output720p, ffmpegOutput720pOptions);
+  await transcodeResolution(inputPath, output1080p, ffmpegOutput1080pOptions);
 
-  // Clean up temporary files
   fs.unlinkSync(inputPath);
 
-  [480, 720, 1080].forEach((res) => {
+  for (const res of [480, 720, 1080]) {
     const dir = `./tmp/${res}`;
-    fs.readdirSync(dir).forEach(async (file) => {
+    for (const file of fs.readdirSync(dir)) {
       const filePath = `${dir}/${file}`;
       if (filePath.endsWith(".m3u8") || filePath.endsWith(".ts")) {
-        // Upload to S3 and delete the local file
         await uploadToS3(filePath, `${videoId}/${res}/${file}`);
         fs.unlinkSync(filePath);
       }
-    });
-  });
+    }
+  }
+
   console.log(`Transcoding completed for video ID: ${videoId}`);
 }
