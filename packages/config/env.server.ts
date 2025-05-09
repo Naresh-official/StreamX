@@ -27,6 +27,8 @@ const envSchema = z.object({
   NEXTAUTH_SECRET: z.string(),
 
   CLOUDFRONT_DISTRIBUTION: z.string(),
+
+  BACKEND_URL: z.string().url(),
 });
 
 export const env = envSchema.parse(process.env);
