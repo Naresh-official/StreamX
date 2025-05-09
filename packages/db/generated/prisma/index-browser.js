@@ -133,12 +133,6 @@ exports.Prisma.AdminScalarFieldEnum = {
   createdAt: 'createdAt'
 };
 
-exports.Prisma.SessionScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  expiresAt: 'expiresAt'
-};
-
 exports.Prisma.VideoScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -146,7 +140,8 @@ exports.Prisma.VideoScalarFieldEnum = {
   thumbnailUrl: 'thumbnailUrl',
   duration: 'duration',
   createdAt: 'createdAt',
-  views: 'views'
+  views: 'views',
+  status: 'status'
 };
 
 exports.Prisma.TagScalarFieldEnum = {
@@ -154,52 +149,15 @@ exports.Prisma.TagScalarFieldEnum = {
   name: 'name'
 };
 
-exports.Prisma.LikeScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  videoId: 'videoId',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.CommentScalarFieldEnum = {
-  id: 'id',
-  content: 'content',
-  userId: 'userId',
-  videoId: 'videoId',
-  createdAt: 'createdAt'
-};
-
-exports.Prisma.WatchHistoryScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  videoId: 'videoId',
-  watchedAt: 'watchedAt',
-  progress: 'progress'
-};
-
 exports.Prisma.CategoryScalarFieldEnum = {
   id: 'id',
   name: 'name'
-};
-
-exports.Prisma.UserCategoryPreferenceScalarFieldEnum = {
-  id: 'id',
-  userId: 'userId',
-  categoryId: 'categoryId',
-  weight: 'weight'
 };
 
 exports.Prisma.ViewEventScalarFieldEnum = {
   id: 'id',
   userId: 'userId',
   videoId: 'videoId',
-  timestamp: 'timestamp'
-};
-
-exports.Prisma.SearchQueryScalarFieldEnum = {
-  id: 'id',
-  query: 'query',
-  userId: 'userId',
   timestamp: 'timestamp'
 };
 
@@ -221,14 +179,6 @@ exports.Prisma.PaymentScalarFieldEnum = {
   paymentDate: 'paymentDate'
 };
 
-exports.Prisma.UploadSessionScalarFieldEnum = {
-  id: 'id',
-  uploaderId: 'uploaderId',
-  videoTitle: 'videoTitle',
-  status: 'status',
-  createdAt: 'createdAt'
-};
-
 exports.Prisma.SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -243,6 +193,13 @@ exports.Prisma.NullsOrder = {
   first: 'first',
   last: 'last'
 };
+exports.VideoStatus = exports.$Enums.VideoStatus = {
+  UPLOADING: 'UPLOADING',
+  PROCESSING: 'PROCESSING',
+  COMPLETED: 'COMPLETED',
+  FAILED: 'FAILED'
+};
+
 exports.SubscriptionPlan = exports.$Enums.SubscriptionPlan = {
   FREE: 'FREE',
   PREMIUM: 'PREMIUM'
@@ -254,29 +211,15 @@ exports.PaymentStatus = exports.$Enums.PaymentStatus = {
   FAILED: 'FAILED'
 };
 
-exports.UploadStatus = exports.$Enums.UploadStatus = {
-  UPLOADING: 'UPLOADING',
-  PROCESSING: 'PROCESSING',
-  READY: 'READY',
-  FAILED: 'FAILED'
-};
-
 exports.Prisma.ModelName = {
   User: 'User',
   Admin: 'Admin',
-  Session: 'Session',
   Video: 'Video',
   Tag: 'Tag',
-  Like: 'Like',
-  Comment: 'Comment',
-  WatchHistory: 'WatchHistory',
   Category: 'Category',
-  UserCategoryPreference: 'UserCategoryPreference',
   ViewEvent: 'ViewEvent',
-  SearchQuery: 'SearchQuery',
   Subscription: 'Subscription',
-  Payment: 'Payment',
-  UploadSession: 'UploadSession'
+  Payment: 'Payment'
 };
 
 /**

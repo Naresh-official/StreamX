@@ -14,8 +14,6 @@ model User {
   name           String?
   profilePicture String?
   createdAt      DateTime @default(now())
-
-  Session Session[]
 }
 
 model Admin {
@@ -26,52 +24,25 @@ model Admin {
   createdAt      DateTime @default(now())
 }
 
-model Session {
-  id        String   @id @default(uuid())
-  userId    String
-  user      User     @relation(fields: [userId], references: [id])
-  expiresAt DateTime
-}
-
 model Video {
-  id           String     @id @default(uuid())
+  id           String      @id @default(uuid())
   title        String
   description  String
-  thumbnailUrl String     @default("")
+  thumbnailUrl String      @default("")
   duration     Int // seconds
-  tags         Tag[]      @relation("VideoTags")
-  createdAt    DateTime   @default(now())
-  views        Int        @default(0)
-  categories   Category[] @relation("VideoCategories")
+  tags         Tag[]       @relation("VideoTags")
+  createdAt    DateTime    @default(now())
+  views        Int         @default(0)
+  categories   Category[]  @relation("VideoCategories")
+  status       VideoStatus @default(UPLOADING)
 }
+
+//TODO : Add visibility settings for videos
 
 model Tag {
   id     String  @id @default(uuid())
   name   String  @unique
   videos Video[] @relation("VideoTags")
-}
-
-model Like {
-  id        String   @id @default(uuid())
-  userId    String
-  videoId   String
-  createdAt DateTime @default(now())
-}
-
-model Comment {
-  id        String   @id @default(uuid())
-  content   String
-  userId    String
-  videoId   String
-  createdAt DateTime @default(now())
-}
-
-model WatchHistory {
-  id        String   @id @default(uuid())
-  userId    String
-  videoId   String
-  watchedAt DateTime @default(now())
-  progress  Int // seconds watched
 }
 
 model Category {
@@ -80,24 +51,10 @@ model Category {
   videos Video[] @relation("VideoCategories")
 }
 
-model UserCategoryPreference {
-  id         String @id @default(uuid())
-  userId     String
-  categoryId String
-  weight     Float // relevance score
-}
-
 model ViewEvent {
   id        String   @id @default(uuid())
   userId    String?
   videoId   String
-  timestamp DateTime @default(now())
-}
-
-model SearchQuery {
-  id        String   @id @default(uuid())
-  query     String
-  userId    String?
   timestamp DateTime @default(now())
 }
 
@@ -119,14 +76,6 @@ model Payment {
   paymentDate DateTime      @default(now())
 }
 
-model UploadSession {
-  id         String       @id @default(uuid())
-  uploaderId String
-  videoTitle String
-  status     UploadStatus
-  createdAt  DateTime     @default(now())
-}
-
 enum SubscriptionPlan {
   FREE
   PREMIUM
@@ -138,9 +87,9 @@ enum PaymentStatus {
   FAILED
 }
 
-enum UploadStatus {
+enum VideoStatus {
   UPLOADING
   PROCESSING
-  READY
+  COMPLETED
   FAILED
 }
