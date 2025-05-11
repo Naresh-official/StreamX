@@ -11,10 +11,9 @@ import VideoTags from "./VideoTags";
 import VideoDuration from "./VideoDuration";
 import ProgressBar from "./ProgressBar";
 import SubmitButton from "./SubmitButton";
-import { useVideoUpload } from "@workspace/api-client";
+import { uploadVideo } from "@workspace/api-client";
 
 export function VideoUploadForm() {
-  const { uploadVideo } = useVideoUpload();
 
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [videoTitle, setVideoTitle] = useState<string>("");

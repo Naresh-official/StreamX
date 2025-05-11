@@ -1,1 +1,2 @@
-export * from "./hooks/useVideoUpload.js";
+export * from "./video/uploadVideo.js";
+export * from "./video/getVideoById.js";

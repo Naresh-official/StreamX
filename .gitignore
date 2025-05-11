@@ -39,10 +39,3 @@ npm-debug.log*
 apps/transcoder/tmp/**/*.ts
 apps/transcoder/tmp/**/*.m3u8
 apps/transcoder/tmp/*.mp4
-
-# Prisma generated files
-node_modules/.prisma/
-.prisma/
-packages/db/generated/
-packages/db/prisma/tmp/
-packages/db/prisma/.lock

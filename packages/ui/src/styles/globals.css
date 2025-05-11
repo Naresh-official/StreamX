@@ -130,3 +130,17 @@
 .hide-scrollbar::-webkit-scrollbar {
   display: none; /* Safari and Chrome */
 }
+
+/* videojs classes */
+.custom-video-js .vjs-poster {
+  background-size: cover !important;
+  background-position: center !important;
+  width: 100% !important;
+  height: 100% !important;
+}
+
+/* .video-js,
+.vjs-tech {
+  width: 100%;
+  height: 100%;
+} */

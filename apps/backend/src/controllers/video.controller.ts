@@ -84,6 +84,10 @@ export const getVideoById: RequestHandler = async (
   }
   const video = await prisma.video.findUnique({
     where: { id: videoId, status: "COMPLETED" },
+    include: {
+      categories: true,
+      tags: true,
+    },
   });
 
   if (!video) {

@@ -1,7 +1,7 @@
 {
-  "name": "@workspace/api-client",
+  "name": "@workspace/types",
   "version": "1.0.0",
-  "description": "Api client that interacts with the backend",
+  "description": "Shared TypeScript types for the workspace",
   "main": "index.js",
   "type": "module",
   "scripts": {
@@ -18,11 +18,7 @@
     "tsx": "^4.19.3",
     "typescript": "^5.8.3"
   },
-  "dependencies": {
-    "@workspace/config": "workspace:*",
-    "@workspace/s3": "workspace:*",
-    "axios": "^1.9.0"
-  },
+  "dependencies": {},
   "exports": {
     ".": "./index.ts"
   },
