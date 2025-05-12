@@ -232,6 +232,9 @@ importers:
       '@workspace/s3':
         specifier: workspace:*
         version: link:../s3
+      '@workspace/types':
+        specifier: workspace:*
+        version: link:../types
       axios:
         specifier: ^1.9.0
         version: 1.9.0

@@ -109,7 +109,9 @@ export default function GenrePage() {
           </>
         )}
       </div>
-      <GenreMovieGrid movies={movies} totalPages={20} />
+      <GenreMovieGrid
+        category={title?.split(" ")?.[0]?.toLowerCase() ?? "action"}
+      />
     </div>
   );
 }

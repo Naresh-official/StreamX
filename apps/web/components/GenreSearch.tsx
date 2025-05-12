@@ -10,35 +10,54 @@ import {
 } from "@workspace/ui/components/select";
 import { Slider } from "@workspace/ui/components/slider";
 import { Search, SlidersHorizontal } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
-export default function GenreSearch() {
+interface GenreSearchProps {
+  value: string;
+  onChange: (value: string) => void;
+}
+
+export default function GenreSearch({ value, onChange }: GenreSearchProps) {
   const [showFilters, setShowFilters] = useState(false);
   const [yearRange, setYearRange] = useState([1970, 2023]);
+  const [localSearch, setLocalSearch] = useState(value);
 
-  console.log(showFilters);
+  // Debounce search input
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      onChange(localSearch);
+    }, 400);
+
+    return () => clearTimeout(timeout);
+  }, [localSearch, onChange]);
 
   const handleSortChange = (value: string) => {
     console.log("Sort by:", value);
-    // This would fetch sorted data from the API
+    // Implement sorting logic
   };
 
   const handleYearRangeChange = (value: number[]) => {
     setYearRange(value);
-    // This would be debounced in a real app
+    // Handle year range filtering
   };
 
   const handleRatingChange = (value: string) => {
     console.log("Minimum rating:", value);
-    // This would fetch filtered data from the API
+    // Handle rating filtering
   };
+
   return (
     <div>
       <div className="mb-6 flex flex-col md:flex-row gap-4 justify-between">
         <div className="flex gap-2">
           <div className="relative w-full md:w-64">
             <Search className="absolute left-2 top-2.5 h-4 w-4 text-gray-500" />
-            <Input placeholder="Search in this genre" className="pl-8" />
+            <Input
+              placeholder="Search in this genre"
+              className="pl-8"
+              value={localSearch}
+              onChange={(e) => setLocalSearch(e.target.value)}
+            />
           </div>
           <Button
             variant="outline"
@@ -64,7 +83,6 @@ export default function GenreSearch() {
         </Select>
       </div>
 
-      {/* Expanded Filters */}
       {showFilters && (
         <div className="mb-6 p-4 bg-gray-900 rounded-lg flex justify-between">
           <div className="space-y-2 w-96">

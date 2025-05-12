@@ -21,6 +21,7 @@
   "dependencies": {
     "@workspace/config": "workspace:*",
     "@workspace/s3": "workspace:*",
+    "@workspace/types": "workspace:*",
     "axios": "^1.9.0"
   },
   "exports": {

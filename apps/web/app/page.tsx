@@ -27,7 +27,7 @@ export default async function HomePage() {
   ]);
 
   return (
-    <main className="min-h-screen bg-black text-white pb-20">
+    <main className="min-h-screen bg-black text-white py-18">
       {/* Featured Banner */}
       <FeaturedBanner content={featured} />
 

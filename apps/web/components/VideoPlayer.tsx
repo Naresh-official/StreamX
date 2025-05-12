@@ -18,9 +18,14 @@ type PlayerOptions = typeof videojs.options;
 interface VideoPlayerProps {
   videoSources: { quality: "480p" | "720p" | "1080p"; url: string }[];
   thumbnailUrl: string;
+  autoPlay?: boolean;
 }
 
-export function VideoPlayer({ videoSources, thumbnailUrl }: VideoPlayerProps) {
+export function VideoPlayer({
+  videoSources,
+  thumbnailUrl,
+  autoPlay = false,
+}: VideoPlayerProps) {
   const playerRef = useRef<Player | null>(null);
   const [selectedQuality, setSelectedQuality] = useState<
     "480p" | "720p" | "1080p"
@@ -30,9 +35,10 @@ export function VideoPlayer({ videoSources, thumbnailUrl }: VideoPlayerProps) {
     videoSources.find((v) => v.quality === selectedQuality)?.url ?? "";
 
   const videoJsOptions: PlayerOptions = {
-    autoplay: false,
+    autoplay: autoPlay,
     controls: true,
     responsive: true,
+    muted: true,
     fluid: true,
     aspectRatio: "16:9",
     poster: thumbnailUrl,
@@ -48,10 +54,17 @@ export function VideoPlayer({ videoSources, thumbnailUrl }: VideoPlayerProps) {
     seeking: true,
   };
 
+  const onReady = (player: Player) => {
+    if (!player) return;
+    if (autoPlay) {
+      player.play();
+    }
+  };
+
   return (
     <div>
       <div className="relative rounded-md overflow-hidden">
-        <VideoJS options={videoJsOptions} ref={playerRef} />
+        <VideoJS options={videoJsOptions} ref={playerRef} onReady={onReady} />
 
         <div className="absolute top-4 right-4 bg-black/50 text-white text-sm rounded p-1">
           <Select
@@ -63,7 +76,7 @@ export function VideoPlayer({ videoSources, thumbnailUrl }: VideoPlayerProps) {
             <SelectTrigger className="w-32 focus-visible:ring-0 focus-visible:border-input">
               <div className="flex items-center gap-2">
                 <Settings className="w-10 h-10 text-white" />
-                <span>Quality</span>
+                <SelectValue placeholder="Quality" />
               </div>
             </SelectTrigger>
             <SelectContent>

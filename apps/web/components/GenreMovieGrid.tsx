@@ -12,28 +12,36 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@workspace/ui/components/pagination";
+import { useVideosByCategory } from "@/hooks/useVideosByCategory";
 
-function GenreMovieGrid({
-  movies,
-  totalPages,
-}: {
-  movies: any[];
-  totalPages: number;
-}) {
+function GenreMovieGrid({ category }: { category: string }) {
   const [currentPage, setCurrentPage] = useState(1);
+  const [search, setSearch] = useState("");
+
+  const { videos, total, loading, error } = useVideosByCategory(
+    category,
+    12,
+    currentPage,
+    search
+  );
+
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
-    // This would fetch the next page of data from the API
   };
 
   return (
     <div className="mt-8">
-      <GenreSearch />
+      <GenreSearch value={search} onChange={setSearch} />
+
+      {loading && <p>Loading...</p>}
+      {error && <p className="text-red-500">{error}</p>}
+
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 md:gap-6">
-        {movies.map((movie) => (
-          <VideoCard key={movie.id} video={movie} />
+        {videos.map((video) => (
+          <VideoCard key={video.id} video={video} />
         ))}
       </div>
+
       <Pagination className="my-8">
         <PaginationContent>
           <PaginationItem>
@@ -49,7 +57,7 @@ function GenreMovieGrid({
             />
           </PaginationItem>
 
-          {Array.from({ length: Math.min(5, totalPages) }, (_, i) => {
+          {Array.from({ length: Math.min(5, total) }, (_, i) => {
             const pageNumber = i + 1;
             return (
               <PaginationItem key={pageNumber}>
@@ -67,7 +75,7 @@ function GenreMovieGrid({
             );
           })}
 
-          {totalPages > 5 && (
+          {total > 5 && (
             <>
               <PaginationItem>
                 <PaginationEllipsis />
@@ -77,10 +85,10 @@ function GenreMovieGrid({
                   href="#"
                   onClick={(e) => {
                     e.preventDefault();
-                    handlePageChange(totalPages);
+                    handlePageChange(total);
                   }}
                 >
-                  {totalPages}
+                  {total}
                 </PaginationLink>
               </PaginationItem>
             </>
@@ -91,12 +99,10 @@ function GenreMovieGrid({
               href="#"
               onClick={(e) => {
                 e.preventDefault();
-                if (currentPage < totalPages) handlePageChange(currentPage + 1);
+                if (currentPage < total) handlePageChange(currentPage + 1);
               }}
               className={
-                currentPage === totalPages
-                  ? "pointer-events-none opacity-50"
-                  : ""
+                currentPage === total ? "pointer-events-none opacity-50" : ""
               }
             />
           </PaginationItem>

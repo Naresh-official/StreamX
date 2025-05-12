@@ -4,11 +4,15 @@ import { BackButton } from "@/components/BackButton";
 import { MovieDetails } from "@/components/MovieDetails";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { useVideo } from "@/hooks/useVideo";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 export default function MoviePage() {
   const { id } = useParams();
   const router = useRouter();
+  const searchParams = useSearchParams();
+
+  const autoPlay = searchParams.get("autoplay") === "true";
+  console.log(autoPlay);
 
   if (typeof id !== "string") {
     router.push("/404");
@@ -20,10 +24,10 @@ export default function MoviePage() {
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
 
-  const { title, description, thumbnailUrl, duration } = video!;
+  const { title, thumbnailUrl, duration } = video!;
 
   return (
-    <div className="min-h-screen px-4 md:px-8 pt-18">
+    <div className="min-h-screen px-4 md:px-8 py-18">
       <div className="container mx-auto">
         <BackButton />
 
@@ -51,6 +55,7 @@ export default function MoviePage() {
                 url: urls?.["1080"]!,
               },
             ]}
+            autoPlay={autoPlay}
           />
         </div>
 
