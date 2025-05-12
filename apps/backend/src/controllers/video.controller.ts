@@ -5,6 +5,7 @@ import {
   getCloudFrontUrl,
 } from "@workspace/s3/index";
 import { videoQueue } from "../libs/queue";
+import { Prisma } from "../../../../packages/db/generated/prisma";
 
 export const createVideoRecord: RequestHandler = async (
   req: Request,
@@ -169,5 +170,74 @@ export const markVideoAsFailed: RequestHandler = async (
     console.error("Error marking video as failed:", error);
     res.status(500).json({ error: "Internal server error" });
     return;
+  }
+};
+
+export const getVideosByCategory: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
+  const { category, search = "", page = 1, limit = 10 } = req.query;
+
+  if (!category || typeof category !== "string") {
+    res.status(400).json({ error: "Category is required" });
+    return;
+  }
+
+  const pageNumber = parseInt(page as string, 10);
+  const pageSize = parseInt(limit as string, 10);
+
+  if (
+    isNaN(pageNumber) ||
+    isNaN(pageSize) ||
+    pageNumber <= 0 ||
+    pageSize <= 0
+  ) {
+    res.status(400).json({ error: "Invalid pagination parameters" });
+    return;
+  }
+
+  try {
+    const filters: Prisma.VideoWhereInput = {
+      categories: {
+        some: {
+          name: category.toLowerCase(),
+        },
+      },
+      ...(search && typeof search === "string"
+        ? {
+            title: {
+              contains: search.trim(),
+              mode: Prisma.QueryMode.insensitive,
+            },
+          }
+        : {}),
+    };
+
+    const videos = await prisma.video.findMany({
+      where: filters,
+      skip: (pageNumber - 1) * pageSize,
+      take: pageSize,
+      include: {
+        categories: true,
+        tags: true,
+      },
+    });
+
+    const totalVideos = await prisma.video.count({
+      where: filters,
+    });
+
+    const totalPages = Math.ceil(totalVideos / pageSize);
+
+    res.status(200).json({
+      videos,
+      total: totalPages,
+      page: pageNumber,
+      limit: pageSize,
+    });
+  } catch (error) {
+    console.error("Error fetching videos by category:", error);
+    res.status(500).json({ error: "Internal server error" });
   }
 };
