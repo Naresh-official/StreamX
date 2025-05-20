@@ -4,6 +4,7 @@ import { BackButton } from "@/components/BackButton";
 import { MovieDetails } from "@/components/MovieDetails";
 import { VideoPlayer } from "@/components/VideoPlayer";
 import { useVideo } from "@/hooks/useVideo";
+import { useVideoViewTracker } from "@/hooks/useVideoViewTracker";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
 
 export default function MoviePage() {
@@ -12,7 +13,6 @@ export default function MoviePage() {
   const searchParams = useSearchParams();
 
   const autoPlay = searchParams.get("autoplay") === "true";
-  console.log(autoPlay);
 
   if (typeof id !== "string") {
     router.push("/404");
@@ -20,6 +20,7 @@ export default function MoviePage() {
   }
 
   const { video, urls, loading, error } = useVideo(id);
+  useVideoViewTracker(id, "76f57c6f-96b8-4027-823b-968d2905ba42"); // TODO: Replace with your actual user ID
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;
