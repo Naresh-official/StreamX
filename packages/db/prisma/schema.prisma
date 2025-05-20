@@ -32,12 +32,10 @@ model Video {
   duration     Int // seconds
   tags         Tag[]       @relation("VideoTags")
   createdAt    DateTime    @default(now())
-  views        Int         @default(0)
   categories   Category[]  @relation("VideoCategories")
   status       VideoStatus @default(UPLOADING)
+  viewEvent    ViewEvent[]
 }
-
-//TODO : Add visibility settings for videos
 
 model Tag {
   id     String  @id @default(uuid())
@@ -53,9 +51,10 @@ model Category {
 
 model ViewEvent {
   id        String   @id @default(uuid())
-  userId    String?
+  userId    String
   videoId   String
   timestamp DateTime @default(now())
+  Video     Video    @relation(fields: [videoId], references: [id])
 }
 
 model Subscription {
