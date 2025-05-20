@@ -1,11 +1,11 @@
 import axios from "axios";
 import { clientEnv } from "@workspace/config/client";
-import { VideoResponse } from "@workspace/types";
+import { Video } from "@workspace/types";
 
-export async function getVideoById(videoId: string): Promise<VideoResponse> {
+export async function getNewReleaseVideos(): Promise<Video[]> {
   try {
     const response = await axios.get(
-      `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/video/${videoId}`,
+      `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/video/new-releases`,
       {
         headers: {
           "Content-Type": "application/json",
@@ -14,7 +14,7 @@ export async function getVideoById(videoId: string): Promise<VideoResponse> {
     );
     return response.data;
   } catch (error) {
-    console.error("Error fetching video:", error);
+    console.error("Error fetching new release videos:", error);
     throw error;
   }
 }
