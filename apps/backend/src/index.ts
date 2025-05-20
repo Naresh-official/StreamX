@@ -22,10 +22,12 @@ const PORT = parseInt(env.PORT);
 import userRoutes from "./routes/user.routes";
 import adminRoutes from "./routes/admin.routes";
 import videoRoutes from "./routes/video.routes";
+import viewEventRoutes from "./routes/viewEvent.routes";
 
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/admin", adminRoutes);
 app.use("/api/v1/video", videoRoutes);
+app.use("/api/v1/view-event", viewEventRoutes);
 
 app.listen(PORT, () => {
   console.log(`Server is listening on port ${PORT}`);

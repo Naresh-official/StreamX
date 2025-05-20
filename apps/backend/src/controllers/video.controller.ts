@@ -241,3 +241,72 @@ export const getVideosByCategory: RequestHandler = async (
     res.status(500).json({ error: "Internal server error" });
   }
 };
+
+export const getTrendingVideos: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
+  const since = new Date();
+  since.setDate(since.getDate() - 7); // last 7 days
+
+  try {
+    const trendingViews = await prisma.viewEvent.groupBy({
+      by: ["videoId"],
+      where: {
+        timestamp: {
+          gte: since,
+        },
+      },
+      _count: {
+        videoId: true,
+      },
+      orderBy: {
+        _count: {
+          videoId: "desc",
+        },
+      },
+      take: 10,
+    });
+
+    const videoIds = trendingViews.map((v) => v.videoId);
+
+    // Fetch video details and preserve order
+    const videos = await prisma.video.findMany({
+      where: {
+        id: { in: videoIds },
+        status: "COMPLETED",
+      },
+      include: {
+        categories: true,
+        tags: true,
+      },
+    });
+
+    const videoMap = new Map(videos.map((v) => [v.id, v]));
+    const trendingVideos = videoIds
+      .map((id) => videoMap.get(id))
+      .filter(Boolean);
+    res.status(200).json(trendingVideos);
+    return;
+  } catch (error) {
+    console.error("Error fetching trending videos:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};
+
+export const getNewReleaseVideos = async (req: Request, res: Response) => {
+  try {
+    const videos = await prisma.video.findMany({
+      orderBy: { createdAt: "desc" },
+      take: 10,
+      include: {
+        categories: true,
+        tags: true,
+      },
+    });
+    res.json(videos);
+  } catch (error) {
+    console.error("Error fetching new release videos:", error);
+    res.status(500).json({ error: "Failed to fetch new release videos" });
+  }
+};
