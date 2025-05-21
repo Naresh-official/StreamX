@@ -310,3 +310,70 @@ export const getNewReleaseVideos = async (req: Request, res: Response) => {
     res.status(500).json({ error: "Failed to fetch new release videos" });
   }
 };
+
+export const searchVideos: RequestHandler = async (
+  req: Request,
+  res: Response
+) => {
+  const { query = "", page = 1, limit = 10 } = req.query;
+
+  const pageNumber = parseInt(page as string, 10);
+  const pageSize = parseInt(limit as string, 10);
+
+  if (
+    isNaN(pageNumber) ||
+    isNaN(pageSize) ||
+    pageNumber <= 0 ||
+    pageSize <= 0
+  ) {
+    res.status(400).json({ error: "Invalid pagination parameters" });
+    return;
+  }
+
+  try {
+    const filters: Prisma.VideoWhereInput = {
+      status: "COMPLETED",
+      ...(query && typeof query === "string"
+        ? {
+            OR: [
+              {
+                title: {
+                  contains: query.trim(),
+                  mode: Prisma.QueryMode.insensitive,
+                },
+              },
+              {
+                description: {
+                  contains: query.trim(),
+                  mode: Prisma.QueryMode.insensitive,
+                },
+              },
+            ],
+          }
+        : {}),
+    };
+
+    const videos = await prisma.video.findMany({
+      where: filters,
+      skip: (pageNumber - 1) * pageSize,
+      take: pageSize,
+      include: {
+        categories: true,
+        tags: true,
+      },
+    });
+
+    const totalVideos = await prisma.video.count({ where: filters });
+    const totalPages = Math.ceil(totalVideos / pageSize);
+
+    res.status(200).json({
+      videos,
+      total: totalPages,
+      page: pageNumber,
+      limit: pageSize,
+    });
+  } catch (error) {
+    console.error("Error searching videos:", error);
+    res.status(500).json({ error: "Internal server error" });
+  }
+};

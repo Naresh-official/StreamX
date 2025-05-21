@@ -3,5 +3,6 @@ export * from "./video/getVideoById.js";
 export * from "./video/getVideosByCategory.js";
 export * from "./video/getTrendingVideos.js";
 export * from "./video/getNewReleaseVideos.js";
+export * from "./video/searchVideos.js";
 
 export * from "./viewEvent/recordVideoView.js";

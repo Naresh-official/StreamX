@@ -14,7 +14,6 @@ import SubmitButton from "./SubmitButton";
 import { uploadVideo } from "@workspace/api-client";
 
 export function VideoUploadForm() {
-
   const [videoFile, setVideoFile] = useState<File | null>(null);
   const [videoTitle, setVideoTitle] = useState<string>("");
   const [videoDescription, setVideoDescription] = useState<string>("");

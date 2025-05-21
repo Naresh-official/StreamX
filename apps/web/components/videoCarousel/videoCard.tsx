@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { Play, Plus, ThumbsUp } from "lucide-react";
 import { Button } from "@workspace/ui/components/button";

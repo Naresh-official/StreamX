@@ -9,6 +9,7 @@ import {
   getVideosByCategory,
   getTrendingVideos,
   getNewReleaseVideos,
+  searchVideos,
 } from "../controllers/video.controller";
 
 const router: Router = Router();
@@ -18,6 +19,7 @@ router.post("/process", addVideoToQueue);
 router.get("/category", getVideosByCategory);
 router.get("/trending", getTrendingVideos);
 router.get("/new-releases", getNewReleaseVideos);
+router.get("/search", searchVideos);
 
 router.get("/:videoId", getVideoById);
 router.patch("/:videoId/processing", markVideoAsProcessing);

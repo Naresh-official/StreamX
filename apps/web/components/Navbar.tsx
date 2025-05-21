@@ -3,6 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Search, Bell, ChevronDown } from "lucide-react";
+import { useRouter } from "next/navigation";
 
 import { Input } from "@workspace/ui/components/input";
 import {
@@ -21,6 +22,7 @@ import {
 
 export function Navbar() {
   const [showSearch, setShowSearch] = useState(false);
+  const router = useRouter();
 
   return (
     <header className="fixed top-0 w-full z-50 bg-gradient-to-b from-black/80 to-transparent backdrop-blur-sm">
@@ -124,7 +126,23 @@ export function Navbar() {
           {/* Search */}
           <div className="relative">
             {showSearch ? (
-              <div className="flex items-center bg-black/60 border border-gray-700 rounded-md overflow-hidden">
+              <form
+                className="flex items-center bg-black/60 border border-gray-700 rounded-md overflow-hidden"
+                onSubmit={(e) => {
+                  e.preventDefault();
+                  const form = e.currentTarget;
+                  const input = form.querySelector(
+                    'input[type="search"]'
+                  ) as HTMLInputElement;
+                  if (input && input.value.trim()) {
+                    router.push(
+                      `/search?query=${encodeURIComponent(input.value.trim())}`
+                    );
+                    input.value = "";
+                    setShowSearch(false);
+                  }
+                }}
+              >
                 <Search className="h-4 w-4 ml-2 text-gray-400" />
                 <Input
                   type="search"
@@ -133,7 +151,7 @@ export function Navbar() {
                   autoFocus
                   onBlur={() => setShowSearch(false)}
                 />
-              </div>
+              </form>
             ) : (
               <Button
                 variant="ghost"

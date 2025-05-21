@@ -2,21 +2,19 @@ import axios from "axios";
 import { clientEnv } from "@workspace/config/client";
 import { GetVideosByCategoryResponse } from "@workspace/types";
 
-export async function getVideosByCategory(
-  category: string,
-  limit = 12,
+export async function searchVideos(
+  query = "",
   page = 1,
-  search = ""
+  limit = 10
 ): Promise<GetVideosByCategoryResponse> {
   try {
     const response = await axios.get(
-      `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/video/category`,
+      `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/video/search`,
       {
         params: {
-          category,
-          limit,
+          query,
           page,
-          ...(search ? { search } : {}),
+          limit,
         },
         headers: {
           "Content-Type": "application/json",
@@ -25,7 +23,7 @@ export async function getVideosByCategory(
     );
     return response.data;
   } catch (error) {
-    console.error("Error fetching videos by category:", error);
+    console.error("Error searching videos:", error);
     throw error;
   }
 }
