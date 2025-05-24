@@ -11,17 +11,18 @@ import {
   getNewReleaseVideos,
   searchVideos,
 } from "../controllers/video.controller";
+import { verifyUser } from "../middleware/auth.middleware";
 
 const router: Router = Router();
 
 router.post("/create", createVideoRecord);
 router.post("/process", addVideoToQueue);
-router.get("/category", getVideosByCategory);
-router.get("/trending", getTrendingVideos);
-router.get("/new-releases", getNewReleaseVideos);
-router.get("/search", searchVideos);
+router.get("/category", verifyUser, getVideosByCategory);
+router.get("/trending", verifyUser, getTrendingVideos);
+router.get("/new-releases", verifyUser, getNewReleaseVideos);
+router.get("/search", verifyUser, searchVideos);
 
-router.get("/:videoId", getVideoById);
+router.get("/:videoId", verifyUser, getVideoById);
 router.patch("/:videoId/processing", markVideoAsProcessing);
 router.patch("/:videoId/completed", markVideoAsCompleted);
 router.patch("/:videoId/failed", markVideoAsFailed);

@@ -5,7 +5,7 @@ export const addViewEvent: RequestHandler = async (
   req: Request,
   res: Response
 ) => {
-  const { videoId, userId } = req.body;
+  const { videoId } = req.body;
 
   if (!videoId || typeof videoId !== "string") {
     res.status(400).json({ error: "Video ID is required" });
@@ -16,7 +16,7 @@ export const addViewEvent: RequestHandler = async (
     const viewEvent = await prisma.viewEvent.create({
       data: {
         videoId,
-        userId: userId || null,
+        userId: req.userId,
       },
     });
 

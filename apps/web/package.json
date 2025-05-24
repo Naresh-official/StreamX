@@ -12,12 +12,14 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
-    "@workspace/config": "workspace:*",
-    "@workspace/ui": "workspace:*",
     "@workspace/api-client": "workspace:*",
+    "@workspace/config": "workspace:*",
     "@workspace/types": "workspace:*",
+    "@workspace/ui": "workspace:*",
+    "axios": "^1.9.0",
     "lucide-react": "^0.475.0",
     "next": "^15.2.3",
+    "next-auth": "^4.24.11",
     "next-themes": "^0.4.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

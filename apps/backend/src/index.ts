@@ -1,6 +1,7 @@
 import express from "express";
 import bodyParser from "body-parser";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import { env } from "@workspace/config/server";
 
@@ -15,6 +16,7 @@ app.use(
 );
 app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cookieParser());
 
 const PORT = parseInt(env.PORT);
 

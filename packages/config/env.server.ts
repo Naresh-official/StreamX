@@ -9,6 +9,7 @@ const __dirname = dirname(__filename);
 config({ path: resolve(__dirname, "../db/.env") });
 config({ path: resolve(__dirname, "../../.env") });
 config({ path: resolve(__dirname, "../../apps/admin/.env") });
+config({ path: resolve(__dirname, "../../apps/web/.env") });
 
 const envSchema = z.object({
   DATABASE_URL: z.string().url(),
@@ -25,6 +26,7 @@ const envSchema = z.object({
   GOOGLE_CLIENT_ID: z.string(),
   GOOGLE_CLIENT_SECRET: z.string(),
   NEXTAUTH_SECRET: z.string(),
+  AUTH_SECRET: z.string(),
 
   CLOUDFRONT_DISTRIBUTION: z.string(),
 
