@@ -1,23 +1,8 @@
 import { FeaturedBanner } from "@/src/components/featuredBanner/featuredBanner";
 import NewReleaseVideos from "@/src/components/NewReleaseVideos";
 import TrendingVideos from "@/src/components/TrendingVideos";
-import { redirect } from "next/navigation";
-
-// Mock function to check if user is authenticated
-// In a real app, this would use a proper auth system
-function isAuthenticated() {
-  // For demo purposes, returning true
-  // In production, check session/token validity
-  return true;
-}
 
 export default async function HomePage() {
-  // Check authentication
-  if (!isAuthenticated()) {
-    redirect("/login");
-  }
-
-  // Fetch featured content
   const featured = await getFeaturedContent();
 
   return (
