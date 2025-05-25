@@ -19,6 +19,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@workspace/ui/components/dropdown-menu";
+import { signOut } from "next-auth/react";
 
 export function Navbar() {
   const [showSearch, setShowSearch] = useState(false);
@@ -206,7 +207,12 @@ export function Navbar() {
                 Help Center
               </DropdownMenuItem>
               <DropdownMenuSeparator className="bg-gray-700" />
-              <DropdownMenuItem className="focus:bg-gray-800">
+              <DropdownMenuItem
+                onClick={() => {
+                  signOut({ redirect: false, callbackUrl: "/" });
+                }}
+                className="focus:bg-gray-800 text-red-600 focus:text-red-600"
+              >
                 Sign out of StreamX
               </DropdownMenuItem>
             </DropdownMenuContent>

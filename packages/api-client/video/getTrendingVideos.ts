@@ -2,7 +2,7 @@ import axios from "axios";
 import { clientEnv } from "@workspace/config/client";
 import { Video } from "@workspace/types";
 
-export async function getTrendingVideos(email: string): Promise<Video[]> {
+export async function getTrendingVideos(userId: string): Promise<Video[]> {
   try {
     const response = await axios.get(
       `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/video/trending`,
@@ -10,7 +10,7 @@ export async function getTrendingVideos(email: string): Promise<Video[]> {
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",
-          "X-User-Email": email,
+          "X-User-Id": userId,
         },
       }
     );

@@ -13,11 +13,11 @@ export function useNewReleaseVideos() {
   useEffect(() => {
     const fetchNewReleases = async () => {
       const session = await getSession();
-      const email = session?.user?.email || "";
+      const userId = session?.user?.id || "";
       setLoading(true);
       setError(null);
       try {
-        const newReleases = await getNewReleaseVideos(email);
+        const newReleases = await getNewReleaseVideos(userId);
         setVideos(newReleases);
       } catch (err) {
         setError("Failed to fetch new release videos.");

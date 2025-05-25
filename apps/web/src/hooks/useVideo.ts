@@ -12,14 +12,14 @@ export function useVideo(videoId: string) {
   useEffect(() => {
     const fetchVideo = async () => {
       const session = await getSession();
-      const userEmail = session?.user?.email || "";
+      const userId = session?.user?.id || "";
       setLoading(true);
       setError(null);
 
       try {
         const { video, url }: VideoResponse = await getVideoById(
           videoId,
-          userEmail
+          userId
         );
         setVideo(video);
         setUrls(url);

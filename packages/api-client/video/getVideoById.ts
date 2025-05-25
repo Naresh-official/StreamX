@@ -4,7 +4,7 @@ import { VideoResponse } from "@workspace/types";
 
 export async function getVideoById(
   videoId: string,
-  userEmail: string = ""
+  userId: string = ""
 ): Promise<VideoResponse> {
   try {
     const response = await axios.get(
@@ -13,7 +13,7 @@ export async function getVideoById(
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",
-          "X-User-Email": userEmail,
+          "X-User-Id": userId,
         },
       }
     );

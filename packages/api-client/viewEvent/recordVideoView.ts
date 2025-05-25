@@ -3,7 +3,7 @@ import { clientEnv } from "@workspace/config/client";
 
 export async function recordVideoView(
   videoId: string,
-  userEmail = ""
+  userId = ""
 ): Promise<void> {
   const key = `viewed-${videoId}`;
 
@@ -20,7 +20,7 @@ export async function recordVideoView(
       {
         headers: {
           "Content-Type": "application/json",
-          "X-User-Email": userEmail || "",
+          "X-User-Id": userId || "",
         },
       }
     );

@@ -7,7 +7,7 @@ export async function getVideosByCategory(
   limit = 12,
   page = 1,
   search = "",
-  userEmail = ""
+  userId = ""
 ): Promise<GetVideosByCategoryResponse> {
   try {
     const response = await axios.get(
@@ -22,7 +22,7 @@ export async function getVideosByCategory(
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",
-          "X-User-Email": userEmail || "",
+          "X-User-Id": userId || "",
         },
       }
     );

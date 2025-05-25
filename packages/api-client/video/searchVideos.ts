@@ -6,7 +6,7 @@ export async function searchVideos(
   query = "",
   page = 1,
   limit = 10,
-  userEmail = ""
+  userId = ""
 ): Promise<GetVideosByCategoryResponse> {
   try {
     const response = await axios.get(
@@ -20,7 +20,7 @@ export async function searchVideos(
         withCredentials: true,
         headers: {
           "Content-Type": "application/json",
-          "X-User-Email": userEmail,
+          "X-User-Id": userId,
         },
       }
     );

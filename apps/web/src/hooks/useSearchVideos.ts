@@ -27,11 +27,11 @@ export function useSearchVideos(
     }
     const fetchVideos = async () => {
       const session = await getSession();
-      const userEmail = session?.user?.email || "";
+      const userId = session?.user?.id || "";
       setLoading(true);
       setError(null);
       try {
-        const response = await searchVideos(query, page, limit, userEmail);
+        const response = await searchVideos(query, page, limit, userId);
         setVideos(response.videos);
         setTotal(response.total);
       } catch (err) {

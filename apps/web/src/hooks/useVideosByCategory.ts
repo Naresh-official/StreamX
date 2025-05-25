@@ -23,7 +23,7 @@ export function useVideosByCategory(
     if (!category) return;
     const fetchVideos = async () => {
       const session = await getSession();
-      const userEmail = session?.user?.email || "";
+      const userId = session?.user?.id || "";
       setLoading(true);
       setError(null);
 
@@ -33,7 +33,7 @@ export function useVideosByCategory(
           limit,
           page,
           search,
-          userEmail
+          userId
         );
         setVideos(response.videos);
         setTotal(response.total);

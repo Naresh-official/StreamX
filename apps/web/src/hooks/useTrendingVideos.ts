@@ -13,12 +13,12 @@ export function useTrendingVideos() {
   useEffect(() => {
     const fetchTrending = async () => {
       const session = await getSession();
-      const userEmail = session?.user?.email || "";
+      const userId = session?.user?.id || "";
       setLoading(true);
       setError(null);
 
       try {
-        const trending = await getTrendingVideos(userEmail);
+        const trending = await getTrendingVideos(userId);
         setVideos(trending);
       } catch (err) {
         setError("Failed to fetch trending videos.");
