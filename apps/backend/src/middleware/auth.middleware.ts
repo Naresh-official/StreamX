@@ -8,9 +8,9 @@ export async function verifyUser(
   next: NextFunction
 ) {
   try {
-    const email = req.headers["x-user-email"] as string;
+    const id = req.headers["x-user-id"] as string;
     const user = await prisma.user.findUnique({
-      where: { email: email },
+      where: { id },
     });
 
     if (!user) {
