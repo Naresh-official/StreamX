@@ -348,6 +348,16 @@ export const searchVideos: RequestHandler = async (
                   mode: Prisma.QueryMode.insensitive,
                 },
               },
+              {
+                tags: {
+                  some: {
+                    name: {
+                      contains: query.trim(),
+                      mode: "insensitive",
+                    },
+                  },
+                },
+              },
             ],
           }
         : {}),
