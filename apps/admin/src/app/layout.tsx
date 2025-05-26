@@ -1,6 +1,8 @@
 import { Poppins } from "next/font/google";
 
 import "@workspace/ui/globals.css";
+import { AdminSidebar } from "../components/AdminSidebar";
+import { AdminHeader } from "../components/AdminHeader";
 
 const poppins = Poppins({
   subsets: ["latin"],
@@ -21,7 +23,11 @@ export default function RootLayout({
   return (
     <html lang="en" className="dark">
       <body className={`${poppins.className} font-sans antialiased`}>
-        {children}
+        <AdminSidebar />
+        <div className="lg:pl-64">
+          <AdminHeader />
+          <main className="p-6 pt-20">{children}</main>
+        </div>
       </body>
     </html>
   );

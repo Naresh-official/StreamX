@@ -12,6 +12,7 @@ import VideoDuration from "./VideoDuration";
 import ProgressBar from "./ProgressBar";
 import SubmitButton from "./SubmitButton";
 import { uploadVideo } from "@workspace/api-client";
+import { useRouter } from "next/navigation";
 
 export function VideoUploadForm() {
   const [videoFile, setVideoFile] = useState<File | null>(null);
@@ -24,6 +25,8 @@ export function VideoUploadForm() {
   const [uploadProgress, setUploadProgress] = useState<number>(0);
   const [uploadStatus, setUploadStatus] = useState<string>("");
   const [isUploading, setIsUploading] = useState<boolean>(false);
+
+  const router = useRouter();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -53,6 +56,8 @@ export function VideoUploadForm() {
     );
     setIsUploading(false);
     setUploadStatus("Uploaded");
+
+    router.push("/upload-queue");
   };
 
   return (
