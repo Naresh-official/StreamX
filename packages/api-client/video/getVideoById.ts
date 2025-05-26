@@ -19,6 +19,12 @@ export async function getVideoById(
     );
     return response.data;
   } catch (error) {
+    if (axios.isAxiosError(error)) {
+      if (error.status === 403) {
+        // Throw a custom error message for inactive user
+        throw new Error("USER_NOT_ACTIVE");
+      }
+    }
     console.error("Error fetching video:", error);
     throw error;
   }
