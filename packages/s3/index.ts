@@ -1,7 +1,9 @@
 import fs from "fs";
 import { env } from "@workspace/config/server";
 import {
+  DeleteObjectsCommand,
   GetObjectCommand,
+  ListObjectsV2Command,
   PutObjectCommand,
   S3Client,
 } from "@aws-sdk/client-s3";
@@ -88,4 +90,48 @@ export function getCloudFrontUrl(videoKey: string): { [key: string]: string } {
     "1080": `${env.CLOUDFRONT_DISTRIBUTION}/${videoKey}/1080/index.m3u8`,
   };
   return url;
+}
+
+export async function emptyAndDeleteS3Directory(
+  directory: string
+): Promise<void> {
+  try {
+    let continuationToken: string | undefined = undefined;
+
+    do {
+      const listCommand: ListObjectsV2Command = new ListObjectsV2Command({
+        Bucket: env.S3_BUCKET,
+        Prefix: directory,
+        ContinuationToken: continuationToken,
+      });
+
+      const listResponse = await s3.send(listCommand);
+      const objects = listResponse.Contents;
+
+      if (!objects || objects.length === 0) {
+        console.log("No objects found under the prefix.");
+        break;
+      }
+
+      const deleteCommand = new DeleteObjectsCommand({
+        Bucket: env.S3_BUCKET,
+        Delete: {
+          Objects: objects.map((obj) => ({ Key: obj.Key! })),
+          Quiet: true,
+        },
+      });
+
+      await s3.send(deleteCommand);
+
+      continuationToken = listResponse.IsTruncated
+        ? listResponse.NextContinuationToken
+        : undefined;
+    } while (continuationToken);
+  } catch (error) {
+    if (error instanceof Error) {
+      console.error(`Error deleting S3 prefix: ${error.message}`);
+    } else {
+      console.error("Unknown error deleting S3 prefix");
+    }
+  }
 }
