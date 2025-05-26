@@ -9,11 +9,12 @@ datasource db {
 }
 
 model User {
-  id             String   @id @default(uuid())
-  email          String   @unique
+  id             String     @id @default(uuid())
+  email          String     @unique
   name           String?
   profilePicture String?
-  createdAt      DateTime @default(now())
+  createdAt      DateTime   @default(now())
+  status         UserStatus @default(ACTIVE)
 }
 
 model Admin {
@@ -29,7 +30,7 @@ model Video {
   title        String
   description  String
   thumbnailUrl String      @default("")
-  duration     Int // seconds
+  duration     Int
   tags         Tag[]       @relation("VideoTags")
   createdAt    DateTime    @default(now())
   categories   Category[]  @relation("VideoCategories")
@@ -91,4 +92,9 @@ enum VideoStatus {
   PROCESSING
   COMPLETED
   FAILED
+}
+
+enum UserStatus {
+  ACTIVE
+  BANNED
 }
