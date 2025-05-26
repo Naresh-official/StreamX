@@ -83,6 +83,17 @@ export const getVideoById: RequestHandler = async (
     res.status(400).json({ error: "Video ID is required" });
     return;
   }
+  const user = await prisma.user.findUnique({
+    where: { id: req.userId },
+  });
+
+  const isUserActive = user?.status === "ACTIVE";
+
+  if (!isUserActive) {
+    res.status(403).json({ error: "User is not active" });
+    return;
+  }
+
   const video = await prisma.video.findUnique({
     where: { id: videoId, status: "COMPLETED" },
     include: {
@@ -199,6 +210,7 @@ export const getVideosByCategory: RequestHandler = async (
 
   try {
     const filters: Prisma.VideoWhereInput = {
+      status: "COMPLETED",
       categories: {
         some: {
           name: category.toLowerCase(),
@@ -297,6 +309,7 @@ export const getTrendingVideos: RequestHandler = async (
 export const getNewReleaseVideos = async (req: Request, res: Response) => {
   try {
     const videos = await prisma.video.findMany({
+      where: { status: "COMPLETED" },
       orderBy: { createdAt: "desc" },
       take: 10,
       include: {
