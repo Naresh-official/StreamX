@@ -20,7 +20,7 @@ export default function MoviePage() {
   }
 
   const { video, urls, loading, error } = useVideo(id);
-  useVideoViewTracker(id); // TODO: Replace with your actual user ID
+  useVideoViewTracker(id);
 
   if (loading) return <p>Loading...</p>;
   if (error) return <p>{error}</p>;

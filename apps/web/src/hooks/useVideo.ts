@@ -23,8 +23,12 @@ export function useVideo(videoId: string) {
         );
         setVideo(video);
         setUrls(url);
-      } catch (err) {
-        setError("Failed to fetch video.");
+      } catch (err: any) {
+        if (err instanceof Error && err.message === "USER_NOT_ACTIVE") {
+          setError("User is not active.");
+        } else {
+          setError("Failed to fetch video.");
+        }
       } finally {
         setLoading(false);
       }
