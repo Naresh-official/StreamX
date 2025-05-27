@@ -1,5 +1,5 @@
 import fs from "fs";
-import { env } from "@workspace/config/server";
+import { getS3Env } from "@workspace/config/server";
 import {
   DeleteObjectsCommand,
   GetObjectCommand,
@@ -9,11 +9,13 @@ import {
 } from "@aws-sdk/client-s3";
 import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
 
+const s3Env = getS3Env();
+
 const s3 = new S3Client({
-  region: env.AWS_REGION,
+  region: s3Env.AWS_REGION,
   credentials: {
-    accessKeyId: env.AWS_ACCESS_KEY_ID,
-    secretAccessKey: env.AWS_SECRET_ACCESS_KEY,
+    accessKeyId: s3Env.AWS_ACCESS_KEY_ID,
+    secretAccessKey: s3Env.AWS_SECRET_ACCESS_KEY,
   },
 });
 
@@ -25,7 +27,7 @@ export async function uploadToS3(filePath: string, key: string): Promise<void> {
     const fileBuffer = Buffer.from(fileContent);
 
     const command = new PutObjectCommand({
-      Bucket: env.S3_BUCKET,
+      Bucket: s3Env.S3_BUCKET,
       Key: key,
       Body: fileBuffer,
     });
@@ -43,7 +45,7 @@ export async function downloadFromS3(
   filePath: string
 ): Promise<void> {
   const command = new GetObjectCommand({
-    Bucket: env.S3_BUCKET,
+    Bucket: s3Env.S3_BUCKET,
     Key: videoKey,
   });
   const response = await s3.send(command);
@@ -76,7 +78,7 @@ export async function generatePresignedUrlForUpload(
   expiresIn: number
 ): Promise<string> {
   const command = new PutObjectCommand({
-    Bucket: env.S3_BUCKET,
+    Bucket: s3Env.S3_BUCKET,
     Key: `${videoKey}/original`,
     ContentType: "video/mp4",
   });
@@ -85,9 +87,9 @@ export async function generatePresignedUrlForUpload(
 
 export function getCloudFrontUrl(videoKey: string): { [key: string]: string } {
   const url = {
-    "480": `${env.CLOUDFRONT_DISTRIBUTION}/${videoKey}/480/index.m3u8`,
-    "720": `${env.CLOUDFRONT_DISTRIBUTION}/${videoKey}/720/index.m3u8`,
-    "1080": `${env.CLOUDFRONT_DISTRIBUTION}/${videoKey}/1080/index.m3u8`,
+    "480": `${s3Env.CLOUDFRONT_DISTRIBUTION}/${videoKey}/480/index.m3u8`,
+    "720": `${s3Env.CLOUDFRONT_DISTRIBUTION}/${videoKey}/720/index.m3u8`,
+    "1080": `${s3Env.CLOUDFRONT_DISTRIBUTION}/${videoKey}/1080/index.m3u8`,
   };
   return url;
 }
@@ -100,7 +102,7 @@ export async function emptyAndDeleteS3Directory(
 
     do {
       const listCommand: ListObjectsV2Command = new ListObjectsV2Command({
-        Bucket: env.S3_BUCKET,
+        Bucket: s3Env.S3_BUCKET,
         Prefix: directory,
         ContinuationToken: continuationToken,
       });
@@ -114,7 +116,7 @@ export async function emptyAndDeleteS3Directory(
       }
 
       const deleteCommand = new DeleteObjectsCommand({
-        Bucket: env.S3_BUCKET,
+        Bucket: s3Env.S3_BUCKET,
         Delete: {
           Objects: objects.map((obj) => ({ Key: obj.Key! })),
           Quiet: true,

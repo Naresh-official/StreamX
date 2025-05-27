@@ -4,7 +4,10 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["./*"],
-      "@workspace/ui/*": ["../../packages/ui/src/*"]
+      "@workspace/ui/*": ["../../packages/ui/src/*"],
+      "@workspace/config/client": ["../../packages/config/src/client.ts"],
+      "@workspace/config/server": ["../../packages/config/src/server.ts"],
+      "@workspace/api-client": ["../../packages/api-client/src/index.ts"]
     },
     "plugins": [
       {
@@ -19,5 +22,10 @@
     "**/*.tsx",
     ".next/types/**/*.ts"
   ],
-  "exclude": ["node_modules"]
+  "exclude": ["node_modules"],
+  "references": [
+    { "path": "../../packages/config" },
+    { "path": "../../packages/db" },
+    { "path": "../../packages/api-client" }
+  ]
 }

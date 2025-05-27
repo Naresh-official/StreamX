@@ -4,11 +4,8 @@ import { useNewReleaseVideos } from "@/src/hooks/useNewReleaseVideos";
 import { VideoCarousel } from "./videoCarousel/VideoCarousel";
 
 function NewReleaseVideos() {
-  const {
-    videos: newReleaseVideos,
-    loading: newReleaseLoading,
-    error: newReleaseError,
-  } = useNewReleaseVideos();
+  const { videos: newReleaseVideos, loading: newReleaseLoading } =
+    useNewReleaseVideos();
   if (newReleaseLoading) {
     return <div className="text-center">Loading new release videos...</div>;
   }

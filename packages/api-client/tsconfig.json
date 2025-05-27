@@ -1,0 +1,17 @@
+{
+  "extends": "../typescript-config/base.json",
+  "compilerOptions": {
+    "outDir": "dist",
+    "rootDir": "src",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "composite": true,
+    "incremental": true,
+    "baseUrl": ".",
+    "paths": {
+      "@workspace/config/client": ["../config/src/client.ts"],
+      "@workspace/config/server": ["../config/src/server.ts"]
+    }
+  },
+  "references": [{ "path": "../config" }]
+}

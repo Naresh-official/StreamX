@@ -1,13 +1,15 @@
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { env } from "@workspace/config/server";
+import { getWebEnv } from "@workspace/config/server";
 import axios from "axios";
+
+const webEnv = getWebEnv();
 
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
-      clientId: env.GOOGLE_CLIENT_ID as string,
-      clientSecret: env.GOOGLE_CLIENT_SECRET as string,
+      clientId: webEnv.GOOGLE_CLIENT_ID as string,
+      clientSecret: webEnv.GOOGLE_CLIENT_SECRET as string,
       httpOptions: {
         timeout: 30000,
       },
@@ -24,7 +26,7 @@ export const authOptions: NextAuthOptions = {
           let existingUser = null;
           try {
             const response = await axios.get(
-              `${env.BACKEND_URL}/user/${encodeURIComponent(email)}`,
+              `${webEnv.BACKEND_URL}/user/${encodeURIComponent(email)}`,
               {
                 headers: {
                   "Content-Type": "application/json",
@@ -52,7 +54,7 @@ export const authOptions: NextAuthOptions = {
           } else {
             try {
               const response = await axios.post(
-                `${env.BACKEND_URL}/user`,
+                `${webEnv.BACKEND_URL}/user`,
                 {
                   name: user.name || "",
                   email: user.email || "",
@@ -95,7 +97,7 @@ export const authOptions: NextAuthOptions = {
       return session;
     },
   },
-  secret: env.NEXTAUTH_SECRET,
+  secret: webEnv.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
     maxAge: 2 * 24 * 60 * 60, // 2 days in seconds

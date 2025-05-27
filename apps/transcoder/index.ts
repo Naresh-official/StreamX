@@ -1,11 +1,13 @@
 import { Worker } from "bullmq";
 import { Redis } from "ioredis";
 import { processVideo } from "./processor.js";
-import { env } from "@workspace/config/server";
+import { getBackendEnv } from "@workspace/config/server";
+
+const backendEnv = getBackendEnv();
 
 const connection = new Redis({
-  host: env.REDIS_HOST,
-  port: Number(env.REDIS_PORT),
+  host: backendEnv.REDIS_HOST,
+  port: Number(backendEnv.REDIS_PORT),
   maxRetriesPerRequest: null,
 });
 

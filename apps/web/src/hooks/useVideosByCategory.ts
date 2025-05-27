@@ -38,6 +38,7 @@ export function useVideosByCategory(
         setVideos(response.videos);
         setTotal(response.total);
       } catch (err) {
+        console.error("Error fetching videos by category:", err);
         setError("Failed to fetch videos by category.");
       } finally {
         setLoading(false);

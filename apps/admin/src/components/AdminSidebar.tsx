@@ -10,7 +10,6 @@ import {
   Upload,
   Menu,
   X,
-  Settings,
   LogOut,
   MonitorUp,
 } from "lucide-react";

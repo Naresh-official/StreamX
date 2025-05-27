@@ -34,6 +34,7 @@ export function useAdminSearchVideos(
         setVideos(response.videos);
         setTotal(response.total);
       } catch (err) {
+        console.error("Error fetching admin search videos:", err);
         setError("Failed to fetch admin search results.");
       } finally {
         setLoading(false);

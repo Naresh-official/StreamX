@@ -4,6 +4,7 @@ import { StatsCards } from "@/src/components/StatsCards";
 export default async function AdminDashboard() {
   const stats = await getDashboardStats();
   const recentActivity = await getRecentActivity();
+  console.log("Recent Activity:", recentActivity);
 
   return (
     <div className="space-y-6">

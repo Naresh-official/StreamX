@@ -2,28 +2,40 @@
   "name": "@workspace/config",
   "version": "1.0.0",
   "description": "",
-  "main": "./server.ts",
+  "main": "dist/server.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch server.ts",
-    "build": "tsc",
-    "start": "node server.js"
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "build": "tsc --build"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "packageManager": "pnpm@10.4.1",
   "devDependencies": {
-    "tsc": "^2.0.4",
+    "@types/node": "^22.15.22",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3"
   },
   "exports": {
     "./server": {
-      "import": "./server.ts"
+      "development": "./src/server.ts",
+      "production": "./dist/server.js"
     },
     "./client": {
-      "import": "./client.ts"
+      "development": "./src/client.ts",
+      "production": "./dist/client.js"
+    }
+  },
+  "typesVersions": {
+    "*": {
+      "client": [
+        "src/client.ts"
+      ],
+      "server": [
+        "src/server.ts"
+      ]
     }
   }
 }

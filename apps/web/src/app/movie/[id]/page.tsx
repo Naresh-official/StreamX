@@ -6,6 +6,7 @@ import { VideoPlayer } from "@/src/components/VideoPlayer";
 import { useVideo } from "@/src/hooks/useVideo";
 import { useVideoViewTracker } from "@/src/hooks/useVideoViewTracker";
 import { useParams, useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 
 export default function MoviePage() {
   const { id } = useParams();
@@ -14,10 +15,13 @@ export default function MoviePage() {
 
   const autoPlay = searchParams.get("autoplay") === "true";
 
-  if (typeof id !== "string") {
-    router.push("/404");
-    return;
-  }
+  useEffect(() => {
+    if (typeof id !== "string") {
+      router.push("/404");
+    }
+  }, [id, router]);
+
+  if (typeof id !== "string") return null;
 
   const { video, urls, loading, error } = useVideo(id);
   useVideoViewTracker(id);

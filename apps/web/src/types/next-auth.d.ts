@@ -1,6 +1,3 @@
-// types/next-auth.d.ts (or wherever appropriate)
-import NextAuth from "next-auth";
-
 declare module "next-auth" {
   interface Session {
     user: {
@@ -27,3 +24,6 @@ declare module "next-auth/jwt" {
     picture?: string | null;
   }
 }
+
+// Force this to be treated as a module
+export {};

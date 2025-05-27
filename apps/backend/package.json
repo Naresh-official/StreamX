@@ -5,8 +5,8 @@
   "main": "src/index.js",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
-    "start": "node build/index.js"
+    "start": "node build/index.js",
+    "build": "tsc --build"
   },
   "keywords": [],
   "author": "",
@@ -19,7 +19,6 @@
     "@types/express": "^5.0.1",
     "@types/jsonwebtoken": "^9.0.9",
     "@types/node": "^20",
-    "tsc": "^2.0.4",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3"
   },

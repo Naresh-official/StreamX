@@ -20,6 +20,7 @@ export function useNewReleaseVideos() {
         const newReleases = await getNewReleaseVideos(userId);
         setVideos(newReleases);
       } catch (err) {
+        console.error("Error fetching new release videos:", err);
         setError("Failed to fetch new release videos.");
       } finally {
         setLoading(false);

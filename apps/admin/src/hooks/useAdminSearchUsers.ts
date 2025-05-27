@@ -33,6 +33,7 @@ export function useAdminSearchUsers(
         setTotal(response.total || 0);
         setTotalPages(response.totalPages || 0);
       } catch (err) {
+        console.log("Error fetching admin users:", err);
         setError("Failed to fetch admin users.");
       } finally {
         setLoading(false);

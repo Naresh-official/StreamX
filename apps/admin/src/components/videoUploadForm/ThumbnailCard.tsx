@@ -2,6 +2,7 @@ import { Button } from "@workspace/ui/components/button";
 import { Input } from "@workspace/ui/components/input";
 import { Label } from "@workspace/ui/components/label";
 import { ImageIcon, X } from "lucide-react";
+import Image from "next/image";
 import { ChangeEvent, Dispatch, useState } from "react";
 
 interface ThumbnailCardProps {
@@ -54,10 +55,12 @@ function ThumbnailCard({
               </Button>
             </div>
             <div className="relative aspect-video w-full">
-              <img
+              <Image
                 src={thumbnailPreview || "/placeholder.svg"}
                 alt="Thumbnail preview"
                 className="rounded-md object-cover w-full h-full"
+                width={1280}
+                height={720}
               />
             </div>
           </div>

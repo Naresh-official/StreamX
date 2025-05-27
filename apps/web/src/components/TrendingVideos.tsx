@@ -4,11 +4,8 @@ import { useTrendingVideos } from "@/src/hooks/useTrendingVideos";
 import { VideoCarousel } from "./videoCarousel/VideoCarousel";
 
 function TrendingVideos() {
-  const {
-    videos: trendingVideos,
-    loading: trendingLoading,
-    error: trendingError,
-  } = useTrendingVideos();
+  const { videos: trendingVideos, loading: trendingLoading } =
+    useTrendingVideos();
   if (trendingLoading) {
     return <div className="text-center">Loading trending videos...</div>;
   }

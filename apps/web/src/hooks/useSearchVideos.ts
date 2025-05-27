@@ -35,6 +35,7 @@ export function useSearchVideos(
         setVideos(response.videos);
         setTotal(response.total);
       } catch (err) {
+        console.error("Error fetching search results:", err);
         setError("Failed to fetch search results.");
       } finally {
         setLoading(false);

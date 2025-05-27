@@ -45,3 +45,5 @@ export const VideoJS = forwardRef<Player | null, VideoJSProps>(
     );
   }
 );
+
+VideoJS.displayName = "VideoJS";

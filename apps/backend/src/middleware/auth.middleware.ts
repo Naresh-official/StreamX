@@ -1,4 +1,3 @@
-import { env } from "@workspace/config/server";
 import prisma from "@workspace/db/*";
 import { NextFunction, Request, Response } from "express";
 

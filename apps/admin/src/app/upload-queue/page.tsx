@@ -1,5 +1,4 @@
 import { UploadQueue } from "@/src/components/UploadQueue";
-import { getUploadQueue } from "@/src/lib/admin-api";
 
 export default async function UploadQueuePage() {
   return (

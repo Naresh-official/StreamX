@@ -23,7 +23,7 @@ export function useVideo(videoId: string) {
         );
         setVideo(video);
         setUrls(url);
-      } catch (err: any) {
+      } catch (err) {
         if (err instanceof Error && err.message === "USER_NOT_ACTIVE") {
           setError("User is not active.");
         } else {

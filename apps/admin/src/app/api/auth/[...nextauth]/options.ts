@@ -1,14 +1,15 @@
 import { NextAuthOptions } from "next-auth";
 import GoogleProvider from "next-auth/providers/google";
-import { env } from "@workspace/config/server";
-import { clientEnv } from "@workspace/config/client";
+import { getAdminEnv } from "@workspace/config/server";
 import axios from "axios";
+
+const adminEnv = getAdminEnv();
 
 export const authOptions: NextAuthOptions = {
   providers: [
     GoogleProvider({
-      clientId: env.GOOGLE_CLIENT_ID as string,
-      clientSecret: env.GOOGLE_CLIENT_SECRET as string,
+      clientId: adminEnv.GOOGLE_CLIENT_ID as string,
+      clientSecret: adminEnv.GOOGLE_CLIENT_SECRET as string,
       httpOptions: {
         timeout: 30000,
       },
@@ -22,7 +23,9 @@ export const authOptions: NextAuthOptions = {
           if (!email) {
             throw new Error("Email not found");
           }
-          const { data } = await axios.get(`${env.BACKEND_URL}/admin/${email}`);
+          const { data } = await axios.get(
+            `${adminEnv.BACKEND_URL}/admin/${email}`
+          );
           if (data.id && data.email && data.name) {
             user.id = data.id;
             user.email = data.email;
@@ -37,7 +40,7 @@ export const authOptions: NextAuthOptions = {
       }
     },
   },
-  secret: env.NEXTAUTH_SECRET,
+  secret: adminEnv.NEXTAUTH_SECRET,
   session: {
     strategy: "jwt",
     maxAge: 20 * 60, // 20 minutes

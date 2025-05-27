@@ -21,6 +21,7 @@ export function useTrendingVideos() {
         const trending = await getTrendingVideos(userId);
         setVideos(trending);
       } catch (err) {
+        console.error("Error fetching trending videos:", err);
         setError("Failed to fetch trending videos.");
       } finally {
         setLoading(false);

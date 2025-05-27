@@ -3,13 +3,15 @@ import bodyParser from "body-parser";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 
-import { env } from "@workspace/config/server";
+import { getBackendEnv } from "@workspace/config/server";
+
+const backendEnv = getBackendEnv();
 
 const app = express();
 
 app.use(
   cors({
-    origin: [env.FRONTEND_URL, env.ADMIN_URL],
+    origin: [backendEnv.FRONTEND_URL, backendEnv.ADMIN_URL],
     methods: ["GET", "POST", "PUT", "DELETE", "PATCH"],
     credentials: true,
   })
@@ -18,7 +20,7 @@ app.use(bodyParser.json({ limit: "10mb" }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
 
-const PORT = parseInt(env.PORT);
+const PORT = parseInt(backendEnv.PORT);
 
 // Import routes
 import userRoutes from "./routes/user.routes";
