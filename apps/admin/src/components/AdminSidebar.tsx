@@ -3,21 +3,11 @@
 import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import {
-  LayoutDashboard,
-  Video,
-  Users,
-  Upload,
-  Menu,
-  X,
-  LogOut,
-  MonitorUp,
-} from "lucide-react";
+import { Video, Users, Upload, Menu, X, LogOut, MonitorUp } from "lucide-react";
 import { Button } from "@workspace/ui/components/button";
 import { cn } from "@workspace/ui/lib/utils";
 
 const navigation = [
-  { name: "Dashboard", href: "/dashboard", icon: LayoutDashboard },
   { name: "Videos", href: "/videos", icon: Video },
   { name: "Users", href: "/users", icon: Users },
   { name: "Upload Video", href: "/videos/upload", icon: MonitorUp },
