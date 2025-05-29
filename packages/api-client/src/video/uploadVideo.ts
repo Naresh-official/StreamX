@@ -58,7 +58,7 @@ export const uploadVideo = async (
     await uploadToPresignedUrl(presignedUrl, videoFile, logProgress);
 
     const { data: queueData } = await axios.post(
-      `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/video/process`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/video/process`,
       {
         videoId: data.video.id,
         videoKey: `${data.video.id}/original`,
