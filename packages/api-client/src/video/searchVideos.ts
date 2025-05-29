@@ -1,5 +1,4 @@
 import axios from "axios";
-import { clientEnv } from "@workspace/config/client";
 import { GetVideosByCategoryResponse } from "@workspace/types";
 
 export async function searchVideos(
@@ -10,7 +9,7 @@ export async function searchVideos(
 ): Promise<GetVideosByCategoryResponse> {
   try {
     const response = await axios.get(
-      `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/video/search`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/video/search`,
       {
         params: {
           query,

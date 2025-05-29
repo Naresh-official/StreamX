@@ -2,7 +2,7 @@
 
 import { useParams, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { knownCategories, genreMap } from "@workspace/config/client";
+import { knownCategories, genreMap } from "@workspace/config/constants";
 import { GenreHeader } from "@/src/components/GenreHeader";
 import GenreMovieGrid from "@/src/components/GenreMovieGrid";
 

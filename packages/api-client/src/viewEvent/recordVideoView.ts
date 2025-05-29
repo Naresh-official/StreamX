@@ -1,5 +1,4 @@
 import axios from "axios";
-import { clientEnv } from "@workspace/config/client";
 
 export async function recordVideoView(
   videoId: string,
@@ -13,7 +12,7 @@ export async function recordVideoView(
 
   try {
     await axios.post(
-      `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/view-event/view`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/view-event/view`,
       {
         videoId,
       },

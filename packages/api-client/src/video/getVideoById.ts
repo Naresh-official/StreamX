@@ -1,5 +1,4 @@
 import axios from "axios";
-import { clientEnv } from "@workspace/config/client";
 import { VideoResponse } from "@workspace/types";
 
 export async function getVideoById(
@@ -8,7 +7,7 @@ export async function getVideoById(
 ): Promise<VideoResponse> {
   try {
     const response = await axios.get(
-      `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/video/${videoId}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/video/${videoId}`,
       {
         withCredentials: true,
         headers: {

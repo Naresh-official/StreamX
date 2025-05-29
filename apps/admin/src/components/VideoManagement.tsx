@@ -19,7 +19,7 @@ import {
 } from "@workspace/ui/components/select";
 import { VideoTable } from "./VideoTable";
 import { Search, Filter } from "lucide-react";
-import { knownCategories } from "@workspace/config/client";
+import { knownCategories } from "@workspace/config/constants";
 import { Video } from "@workspace/types";
 
 interface VideoManagementProps {

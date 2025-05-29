@@ -1,5 +1,4 @@
 import axios from "axios";
-import { clientEnv } from "@workspace/config/client";
 
 export async function deleteVideo(id: string): Promise<{ message: string }> {
   if (!id) {
@@ -7,7 +6,7 @@ export async function deleteVideo(id: string): Promise<{ message: string }> {
   }
   try {
     const response = await axios.delete(
-      `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/admin/video`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/video`,
       {
         params: { id },
         headers: {

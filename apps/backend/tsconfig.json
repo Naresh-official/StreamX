@@ -6,8 +6,7 @@
     "baseUrl": ".",
     "paths": {
       "@workspace/db/*": ["../../packages/db/index.ts"],
-      "@workspace/config/client": ["../../packages/config/src/client.ts"],
-      "@workspace/config/server": ["../../packages/config/src/server.ts"],
+      "@workspace/config/*": ["../../packages/config/src/*.ts"],
       "@workspace/s3/*": ["../../packages/s3/*"]
     }
   },

@@ -1,5 +1,4 @@
 import axios, { AxiosError } from "axios";
-import { clientEnv } from "@workspace/config/client";
 import { uploadToPresignedUrl } from "@workspace/s3/client";
 
 export const uploadVideo = async (
@@ -33,7 +32,7 @@ export const uploadVideo = async (
     const thumbnailUrl = thumbnailData?.secure_url;
 
     const { data } = await axios.post(
-      `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/video/create`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/video/create`,
       {
         title,
         thumbnailUrl,

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { clientEnv } from "@workspace/config/client";
 
 export async function getAllUsers(
   name?: string,
@@ -13,7 +12,7 @@ export async function getAllUsers(
     if (limit) query.append("limit", limit.toString());
 
     const response = await axios.get(
-      `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/admin/users?${query.toString()}`
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/admin/users?${query.toString()}`
     );
     return response.data;
   } catch (error) {

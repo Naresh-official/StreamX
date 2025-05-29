@@ -10,7 +10,7 @@ import {
 import { Button } from "@workspace/ui/components/button";
 import { X } from "lucide-react";
 import { Dispatch, SetStateAction } from "react";
-import { knownCategories } from "@workspace/config/client";
+import { knownCategories } from "@workspace/config/constants";
 
 interface VideoCategoriesProps {
   selectedCategories: string[];

@@ -1,11 +1,10 @@
 import axios from "axios";
-import { clientEnv } from "@workspace/config/client";
 import { Video } from "@workspace/types";
 
 export async function getTrendingVideos(userId: string): Promise<Video[]> {
   try {
     const response = await axios.get(
-      `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/video/trending`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/video/trending`,
       {
         withCredentials: true,
         headers: {

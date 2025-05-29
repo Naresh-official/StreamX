@@ -7,10 +7,7 @@ import {
   ffmpegOutput480pOptions,
   ffmpegOutput720pOptions,
   ffmpegOutput1080pOptions,
-  getBackendEnv,
-} from "@workspace/config/server";
-
-const backendEnv = getBackendEnv();
+} from "@workspace/config/ffmpeg";
 
 async function transcodeResolution(
   inputPath: string,
@@ -32,7 +29,7 @@ export async function processVideo(job: Job) {
   const { videoKey, videoId } = job.data;
   console.log(`Starting video transcoding job for ${videoId}...`);
 
-  await fetch(`${backendEnv.BACKEND_URL}/video/${videoId}/processing`, {
+  await fetch(`${process.env.BACKEND_URL}/video/${videoId}/processing`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json",
@@ -71,7 +68,7 @@ export async function processVideo(job: Job) {
       }
     }
 
-    await fetch(`${backendEnv.BACKEND_URL}/video/${videoId}/completed`, {
+    await fetch(`${process.env.BACKEND_URL}/video/${videoId}/completed`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",
@@ -80,7 +77,7 @@ export async function processVideo(job: Job) {
 
     console.log(`Transcoding completed for video ID: ${videoId}`);
   } catch (error) {
-    await fetch(`${backendEnv.BACKEND_URL}/video/${videoId}/failed`, {
+    await fetch(`${process.env.BACKEND_URL}/video/${videoId}/failed`, {
       method: "PATCH",
       headers: {
         "Content-Type": "application/json",

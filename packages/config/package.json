@@ -19,23 +19,6 @@
     "typescript": "^5.8.3"
   },
   "exports": {
-    "./server": {
-      "development": "./src/server.ts",
-      "production": "./dist/server.js"
-    },
-    "./client": {
-      "development": "./src/client.ts",
-      "production": "./dist/client.js"
-    }
-  },
-  "typesVersions": {
-    "*": {
-      "client": [
-        "src/client.ts"
-      ],
-      "server": [
-        "src/server.ts"
-      ]
-    }
+    "./*": "./src/*.ts"
   }
 }

@@ -1,5 +1,4 @@
 import axios from "axios";
-import { clientEnv } from "@workspace/config/client";
 import { GetVideosByCategoryResponse } from "@workspace/types";
 
 export async function getVideosByCategory(
@@ -11,7 +10,7 @@ export async function getVideosByCategory(
 ): Promise<GetVideosByCategoryResponse> {
   try {
     const response = await axios.get(
-      `${clientEnv.NEXT_PUBLIC_BACKEND_URL}/video/category`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/video/category`,
       {
         params: {
           category,

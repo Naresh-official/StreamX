@@ -8,8 +8,7 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@workspace/config/client": ["../config/src/client.ts"],
-      "@workspace/config/server": ["../config/src/server.ts"]
+      "@workspace/config/*": ["../config/src/*.ts"]
     }
   },
   "references": [{ "path": "../config" }]
