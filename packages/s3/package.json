@@ -14,6 +14,7 @@
   "license": "ISC",
   "packageManager": "pnpm@10.4.1",
   "devDependencies": {
+    "@types/dotenv": "^8.2.3",
     "tsx": "^4.19.3",
     "typescript": "^5.8.3"
   },
@@ -32,6 +33,7 @@
   "dependencies": {
     "@aws-sdk/client-s3": "^3.787.0",
     "@aws-sdk/s3-request-presigner": "^3.797.0",
-    "@workspace/config": "workspace:*"
+    "@workspace/config": "workspace:*",
+    "dotenv": "^16.5.0"
   }
 }

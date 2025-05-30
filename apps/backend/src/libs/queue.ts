@@ -10,8 +10,12 @@ configDotenv({
 const connection = new Redis({
   host: process.env.REDIS_HOST as string,
   port: Number(process.env.REDIS_PORT as string),
+  password: process.env.REDIS_PASSWORD as string,
 });
 
 export const videoQueue = new Queue("video-transcode", {
   connection,
+  defaultJobOptions: {
+    removeOnComplete: true,
+  },
 });

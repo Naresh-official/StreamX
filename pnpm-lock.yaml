@@ -173,6 +173,9 @@ importers:
       bullmq:
         specifier: ^5.49.1
         version: 5.49.1
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
       express:
         specifier: ^5.1.0
         version: 5.1.0
@@ -183,6 +186,9 @@ importers:
         specifier: ^5.6.1
         version: 5.6.1
     devDependencies:
+      '@types/dotenv':
+        specifier: ^8.2.3
+        version: 8.2.3
       '@types/express':
         specifier: ^5.0.1
         version: 5.0.1
@@ -363,7 +369,13 @@ importers:
       '@workspace/config':
         specifier: workspace:*
         version: link:../config
+      dotenv:
+        specifier: ^16.5.0
+        version: 16.5.0
     devDependencies:
+      '@types/dotenv':
+        specifier: ^8.2.3
+        version: 8.2.3
       tsx:
         specifier: ^4.19.3
         version: 4.19.3
