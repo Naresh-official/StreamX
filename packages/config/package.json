@@ -2,11 +2,11 @@
   "name": "@workspace/config",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/server.js",
+  "main": "dist/constants.js",
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/server.ts",
-    "start": "node dist/server.js",
+    "dev": "tsx watch src/constants.ts",
+    "start": "node dist/constants.js",
     "build": "tsc --build"
   },
   "keywords": [],

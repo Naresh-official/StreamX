@@ -22,6 +22,8 @@ const worker = new Worker(
   { connection }
 );
 
+console.log(`🔧 Worker started for video transcoding`);
+
 worker.on("completed", (job) => {
   console.log(`🎉 Job ${job.id} completed`);
 });
