@@ -2,12 +2,12 @@
   "name": "@workspace/config",
   "version": "1.0.0",
   "description": "",
-  "main": "dist/constants.js",
+  "main": "dist/index.js",
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/constants.ts",
     "start": "node dist/constants.js",
-    "build": "tsc --build"
+    "build": "tsc --build && node scripts/adjust-exports.js"
   },
   "keywords": [],
   "author": "",
