@@ -8,8 +8,8 @@
     "incremental": true,
     "baseUrl": ".",
     "paths": {
-      "@workspace/config/*": ["../../packages/config/src/*.ts"],
-      "@workspace/s3/*": ["../../packages/s3/*"]
+      "@workspace/config/*": ["../../packages/config/src/*"],
+      "@workspace/s3/*": ["../../packages/s3/src/*"]
     }
   },
   "references": [

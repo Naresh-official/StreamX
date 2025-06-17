@@ -9,6 +9,11 @@
     "start": "node dist/constants.js",
     "build": "tsc --build && node scripts/adjust-exports.js"
   },
+  "turbo": {
+    "outputs": [
+      "dist/**"
+    ]
+  },
   "keywords": [],
   "author": "",
   "license": "ISC",

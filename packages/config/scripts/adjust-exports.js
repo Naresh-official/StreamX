@@ -3,14 +3,13 @@ import fs from "fs";
 const pkg = JSON.parse(fs.readFileSync("./package.json", "utf-8"));
 
 pkg.exports = {
+  "./ffmpeg": {
+    import: "./dist/ffmpeg.js",
+    require: "./dist/ffmpeg.js",
+  },
   ".": {
     import: "./dist/index.js",
-  },
-  "./server": {
-    import: "./dist/index.js",
-  },
-  "./client": {
-    import: "./dist/client.js",
+    require: "./dist/index.js",
   },
 };
 

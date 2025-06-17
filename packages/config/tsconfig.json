@@ -7,5 +7,6 @@
     "moduleResolution": "Bundler",
     "composite": true,
     "incremental": true
-  }
+  },
+  "include": ["src"]
 }
